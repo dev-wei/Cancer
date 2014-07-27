@@ -8,7 +8,8 @@ var express = require('express'),
     serveStatic = require('serve-static'),
     cookieParser = require('cookie-parser'),
     methodOverride = require('method-override'),
-    urlencoded = require('urlencode'),
+    bodyParser = require('body-parser'),
+    json = require('json-middleware'),
     mongoStore = require('connect-mongo')(session),
     flash = require('connect-flash'),
     helpers = require('view-helpers'),
@@ -44,8 +45,8 @@ module.exports = function (app, passport, db) {
     app.use(cookieParser());
 
     // request body parsing middleware should be above methodOverride
-    app.use(urlencoded());
-    app.use(express.json());
+    app.use(bodyParser());
+    app.use(json.middleware());
     app.use(methodOverride());
 
     //express/mongo session storage

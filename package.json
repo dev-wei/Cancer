@@ -13,6 +13,7 @@
     "serve-static": "latest",
     "method-override": "latest",
     "urlencode": "latest",
+    "json-middleware": "latest",
     "debug": "latest",
     "jade": "latest",
     "mean-logger": "latest",
