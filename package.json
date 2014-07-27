@@ -17,6 +17,8 @@
     "connect-mongo": "latest",
     "connect-flash": "latest",
     "crypto": "latest",
-    "express-session": "latest"
+    "express-session": "latest",
+    "socket.io": "latest",
+    "should": "latest"
   }
 }

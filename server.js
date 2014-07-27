@@ -47,5 +47,19 @@ var app = express();
 //express settings
 require('./config/express')(app, passport, db);
 
+//Bootstrap routes
+require('./config/routes')(app, passport, auth);
 
+//Start the app by listening on <port>
+var port = process.env.PORT || config.port;
 
+console.log('Express app started on port ' + port);
+logger.init(app, passport, mongoose);
+server = app.listen(port);
+
+var io = require('socket.io').listen(server);
+
+// Socket.io Communication
+io.sockets.on('connection', require('./config/socket'));
+//expose app
+exports = module.exports = app;
