@@ -31,7 +31,7 @@ module.exports = function (app, passport, db) {
     }));
 
     //Setting the fav icon and static folder
-    app.use(favicon(config.root + '/public/images/favicon.ico'));
+    app.use(favicon(config.root + '/public/img/icons/favicon.ico'));
     app.use(serveStatic(config.root + '/public'));
 
     //Set views path, template engine and default layout
@@ -45,13 +45,18 @@ module.exports = function (app, passport, db) {
     app.use(cookieParser());
 
     // request body parsing middleware should be above methodOverride
-    app.use(bodyParser());
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
+    app.use(bodyParser.json());
     app.use(json.middleware());
     app.use(methodOverride());
 
     //express/mongo session storage
     app.use(session({
         secret: 'MEAN',
+        saveUninitialized: true,
+        resave: true,
         store: new mongoStore({
             db: db.connection.db,
             collection: 'sessions'
