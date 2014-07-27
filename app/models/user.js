@@ -122,3 +122,5 @@ UserSchema.methods = {
         return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
     }
 };
+
+mongoose.model('User', UserSchema);
