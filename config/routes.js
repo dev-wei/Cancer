@@ -1,33 +1,56 @@
+var express = require('express');
+
 module.exports = function(app, passport, auth) {
+
+    //Home route
+    var router = express.Router(),
+        index = require('../app/controllers/index');
+    router.get('/', index.render);
+
     //User Routes
     var users = require('../app/controllers/users');
-    app.get('/signin', users.signin);
-    app.get('/signup', users.signup);
-    app.get('/signout', users.signout);
-    app.get('/users/me', users.me);
+    router.get('/signin', users.signin);
+    router.get('/signup', users.signup);
+    router.get('/signout', users.signout);
+    router.get('/users/me', users.me);
+    router.get('/users', users.all);
 
-    //Setting up the users api
-    app.post('/users', users.create);
-
-    //Setting up the users api
-    app.post('/users/update', users.updateUser);
+    router.post('/user', users.create);
+    router.post('/user/update', users.updateUser);
 
     //Setting the local strategy route
-    app.post('/users/session', passport.authenticate('local', {
+    router.post('/user/session', passport.authenticate('local', {
         failureRedirect: '/signin',
         failureFlash: true
     }), users.session);
 
     //Finish with setting up the userId param
-    app.param('userId', users.user);
+    router.param('userId', users.user);
 
-    //User Routes
-    app.get('/User', users.all);
+    app.use('/', router);
 
-    //Finish with setting up the UserChatsId param
-    //  app.param('UserChatsId', User.UserChatsId);
+    //Assume "not found" in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
+    app.use(function (err, req, res, next) {
+        //Treat as 404
+        if (~err.message.indexOf('not found')) return next();
 
-    //Home route
-    var index = require('../app/controllers/index');
-    app.get('/', index.render);
+        //Log it
+        console.error(err.stack);
+
+        //Error page
+        res.status(500).render('500', {
+            error: err.stack
+        });
+    });
+
+    //Assume 404 since no middleware responded
+    app.use(function (req, res, next) {
+        res.status(404).render('404', {
+            url: req.originalUrl,
+            error: 'Not found'
+        });
+    });
+
+
+
 };

@@ -1,10 +1,11 @@
 /**
  * Module dependencies.
  */
-var express = require('express'),
+var path = require('path'),
     session = require('express-session'),
     compression = require('compression'),
     favicon = require('serve-favicon'),
+    logger = require("morgan"),
     serveStatic = require('serve-static'),
     cookieParser = require('cookie-parser'),
     methodOverride = require('method-override'),
@@ -30,13 +31,13 @@ module.exports = function (app, passport, db) {
         level: 9
     }));
 
-    //Setting the fav icon and static folder
-    app.use(favicon(config.root + '/public/img/icons/favicon.ico'));
-    app.use(serveStatic(config.root + '/public'));
-
     //Set views path, template engine and default layout
-    app.set('views', config.root + '/app/views');
+    app.set('views', path.join(config.root, '/app/views'));
     app.set('view engine', 'jade');
+
+    //Setting the fav icon and static folder
+    app.use(favicon(path.join(config.root, '/public/img/icons/favicon.ico')));
+    app.use(serveStatic(path.join(config.root, '/public')));
 
     //Enable jsonp
     app.enable('jsonp callback');
@@ -44,13 +45,14 @@ module.exports = function (app, passport, db) {
     //cookieParser should be above session
     app.use(cookieParser());
 
-    // request body parsing middleware should be above methodOverride
+    //request body parsing middleware should be above methodOverride
+    app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
         extended: true
     }));
-    app.use(bodyParser.json());
-    app.use(json.middleware());
-    app.use(methodOverride());
+
+    //Enable logger
+    app.use(logger('dev'));
 
     //express/mongo session storage
     app.use(session({
@@ -72,26 +74,4 @@ module.exports = function (app, passport, db) {
     //use passport session
     app.use(passport.initialize());
     app.use(passport.session());
-
-    //Assume "not found" in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
-    app.use(function (err, req, res, next) {
-        //Treat as 404
-        if (~err.message.indexOf('not found')) return next();
-
-        //Log it
-        console.error(err.stack);
-
-        //Error page
-        res.status(500).render('500', {
-            error: err.stack
-        });
-    });
-
-    //Assume 404 since no middleware responded
-    app.use(function (req, res, next) {
-        res.status(404).render('404', {
-            url: req.originalUrl,
-            error: 'Not found'
-        });
-    });
 };

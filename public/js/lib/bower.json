@@ -11,6 +11,7 @@
     "bootstrap": "latest",
     "angular-bootstrap": "latest",
     "angular-ui-utils": "latest",
+    "angular-ui-map": "latest",
     "ng-grid": "latest"
   }
 }

@@ -1,3 +1,5 @@
-//
-   Created by michael.wei on 7/27/14.
-
+extends layouts/default
+block content
+    section(data-ng-view)
+    script(type="text/javascript").
+        window.user = !{user};
