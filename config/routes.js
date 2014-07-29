@@ -27,7 +27,11 @@ module.exports = function(app, passport, auth) {
     //Finish with setting up the userId param
     router.param('userId', users.user);
 
+    var test = require('../app/controllers/test');
+    router.get('/tests/:name', test.render);
+
     app.use('/', router);
+
 
     //Assume "not found" in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
     app.use(function (err, req, res, next) {
