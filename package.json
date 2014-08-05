@@ -31,6 +31,8 @@
     "view-helpers": "latest",
     "express-session": "latest",
     "socket.io": "latest",
-    "should": "latest"
+    "should": "latest",
+    "cluster": "latest",
+    "log4js": "latest"
   }
 }
