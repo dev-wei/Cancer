@@ -50,18 +50,6 @@ require('./config/express')(app, passport, db);
 //Bootstrap routes
 require('./config/routes')(app, passport, auth);
 
-//var router = express.Router();
-////Home route
-////var index = require('../app/controllers/index');
-//router.get('/', function(req, res) {
-//    res.render('index', {
-//        user: req.user ? JSON.stringify(req.user) : "null"
-//    });
-//});
-//
-//app.use('/', router);
-
-
 //Start the app by listening on <port>
 var port = process.env.PORT || config.port;
 
