@@ -1,21 +1,17 @@
 var cluster = require('cluster'),
     os = require('os'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    logger = require('./config/logger.js');
 
-module.exports = function (options, loggerFactory, workerCount, workerListener) {
+module.exports = function () {
     'use strict';
 
     var defaults = {
-
-        loaders : []
-
+        workerCount : os.cpus().length
     };
 
-    if (!workerCount) {
-        workerCount = os.cpus().length;
-    }
-
     var runMaster = function () {
+
         var i, workers, masterLogger;
         workers = [];
         masterLogger = loggerFactory.getLogger('Master');
