@@ -30,7 +30,7 @@ var Callback = (function (options) {
             return options.must_keep.apply(options, arguments);
         }
     };
-}());
+});
 
 /***
  *
@@ -148,7 +148,7 @@ var CallbackList = (function () {
     var list;
 
     // Initialize list
-    this.clear();
+    clear();
 
     // Add callbacks if any specified on creation
     if (arguments.length > 0 && arguments[0].constructor !== Object) {
@@ -161,7 +161,7 @@ var CallbackList = (function () {
         clear: clear,
         handle: handle
     };
-}());
+});
 
 // Export the Underscore object for **Node.js**, with
 // backwards-compatibility for the old `require()` API. If we're in
@@ -169,7 +169,7 @@ var CallbackList = (function () {
 // for Closure Compiler "advanced" mode.
 if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {
-        exports = module.exports = Callback;
+        exports = module.exports = CallbackList;
     }
 }
 

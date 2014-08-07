@@ -1,4 +1,5 @@
-var logger = require('./config/logger.js');
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+require('./config/cluster')({});
 
 //
 ///**
