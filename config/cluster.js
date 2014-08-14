@@ -6,88 +6,92 @@ var cluster = require('cluster'),
     callback = require('../public/js/lib/my_components/callback/src/callback');
 
 module.exports = function (options) {
-    'use strict';
-    // Constants
-    var MASTER = 'MASTER';
-    var WORKER = 'WORKER_{{index}}';
+  'use strict';
 
-    // WorkerListeners, this is used for storing all callbacks for each worker
-    var workerListeners = new callback();
+  // Constants
+  var MASTER = 'MASTER';
+  var WORKER = 'WORKER_{{index}}';
 
-    /**
-     * Default option
-     * @type {{workerCount: *}}
-     */
-    var defaultsOptions = {
-        workerCount : os.cpus().length
-    };
+  // WorkerListeners, this is used for storing all callbacks for each worker
+  var workerListeners = new callback();
 
-    /**
-     * Check options
-     */
-    options = _.extend(defaultsOptions, options);
-    (function(options){
-        if (typeof options.workerCount !== 'number') {
-            throw 'workerCount be a number';
-        }
-    }(options));
+  /**
+   * Default options
+   * @type {{workerCount: *, workerListeners: Array}}
+   */
+  var defaultsOptions = {
+    workerCount: os.cpus().length,
+    workerListeners: []
+  };
 
-    /**
-     * Master function
-     */
-    var runMaster = function () {
+  /**
+   * Check options
+   */
+  options = _.extend(defaultsOptions, options);
+  (function (options) {
+    if (typeof options.workerCount !== 'number') {
+      throw 'workerCount be a number';
+    }
+    options.workerListeners.forEach(function (listener) {
+      if (typeof listener !== 'function') {
+        throw 'workerListeners must only contain function(s).';
+      }
+      workerListeners.add(listener);
+    });
+  }(options));
 
-        var logger = logging.getLogger(MASTER);
+  /**
+   * Master function
+   */
+  var runMaster = function () {
+    var logger = logging.getLogger(MASTER);
+    logger.debug('starting master......');
 
-        logger.debug('Starting master......');
+    var workers = [];
+    var i;
+    for (i = 0; i < options.workerCount; i = i + 1) {
+      workers.push(cluster.fork());
+    }
 
-        var workers = [];
-        var i;
-        for (i = 0; i < options.workerCount; i = i + 1) {
-            workers.push(cluster.fork());
-        }
+    cluster.on('exit', function (worker, code) {
+      var workerIdx = workers.indexOf(worker);
+      var logger = logging.getLogger(string(WORKER).template({"index": cluster.worker.id}).s);
 
-        cluster.on('exit', function (worker, code, signal) {
-            var workerIdx = workers.indexOf(worker);
-            var logger = logging.getLogger(
-                string(WORKER).template({'index':cluster.worker.id}).s);
+      logger.warning(worker.process.pid + ' died with code ' + code);
+      logger.info('restarting.....');
 
-            logger.error(worker.process.pid + ' died with code ' + code);
-            logger.info('restarting.....');
+      if (workerIdx > -1) {
+        workers.splice(workerIdx, 1);
+      }
 
-            if (workerIdx > -1) {
-                workers.splice(workerIdx, 1);
-            }
+      worker = cluster.fork();
+      worker.on('message', function () {
+        workerListeners.handle(true);
+      });
 
-            worker = cluster.fork();
-            worker.on('message', function(){
-                workerListeners.handle(true);
-            });
+      return workers.push(worker);
+    });
 
-            return workers.push(worker);
-        });
+    logger.debug('ending master......');
+    return process.on('SIGQUIT', function () {
+      var j, worker, results;
+      results = [];
 
-        logger.debug('Ending master......');
+      logger.info('QUIT received, will exit once all workers have finished current requests');
+      for (j = 0; j < workers.length; j += 1) {
+        worker = workers[j];
+        results.push(worker.send('quit'));
+      }
+      return results;
+    });
+  };
 
-        return process.on('SIGQUIT', function () {
-            var j, worker, results;
-            results = [];
-
-            logger.info('QUIT received, will exit once all workers have finished current requests');
-            for (j = 0; j < workers.length; j += 1) {
-                worker = workers[j];
-                results.push(worker.send('quit'));
-            }
-
-            return results;
-        });
-    };
-
-    var runWorker = function () {
-        var logger = logging.getLogger(
-            string(WORKER).template({'index':cluster.worker.id}).s);
-
-        logger.debug('Starting worker......');
+  /**
+   *
+   */
+  var runWorker = function () {
+    var logger = logging.getLogger(string(WORKER).template({"index": cluster.worker.id}).s);
+    logger.debug('starting worker......');
 
 //        server = loader(workerLogger);
 //        if (!server) {
@@ -108,11 +112,11 @@ module.exports = function (options) {
 //            });
 //        }
 
-        logger.debug('Ending worker......');
-    };
+    logger.debug('ending worker......');
+  };
 
-    if (cluster.isMaster) {
-        return runMaster();
-    }
-    return runWorker();
+  if (cluster.isMaster) {
+    return runMaster();
+  }
+  return runWorker();
 };
