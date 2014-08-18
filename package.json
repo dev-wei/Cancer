@@ -1,39 +1,143 @@
 {
   "name": "cancer",
+  "description": "Michael Wei's user interface",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "latest",
-    "compression": "latest",
-    "static-favicon": "latest",
-    "morgan": "latest",
-    "cookie-parser": "latest",
-    "body-parser": "latest",
-    "serve-favicon": "latest",
-    "serve-static": "latest",
-    "method-override": "latest",
-    "urlencode": "latest",
-    "json-middleware": "latest",
-    "debug": "latest",
-    "jade": "latest",
-    "mean-logger": "latest",
-    "passport": "latest",
-    "passport-local": "latest",
-    "passport-facebook": "latest",
-    "passport-twitter": "latest",
-    "passport-github": "latest",
-    "passport-google-oauth": "latest",
-    "mongoose": "latest",
-    "underscore": "latest",
-    "connect-mongo": "latest",
-    "connect-flash": "latest",
-    "crypto": "latest",
-    "view-helpers": "latest",
-    "express-session": "latest",
-    "socket.io": "latest",
-    "should": "latest",
-    "cluster": "latest",
-    "log4js": "latest",
-    "string": "latest"
+    "body-parser": "^1.6.4",
+    "cluster": "^0.7.7",
+    "compression": "^1.0.11",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^0.4.1",
+    "cookie-parser": "^1.3.2",
+    "crypto": "0.0.3",
+    "debug": "^1.0.4",
+    "express": "^4.8.4",
+    "express-session": "^1.7.5",
+    "jade": "^1.5.0",
+    "json-middleware": "^1.0.2",
+    "less": "^1.7.4",
+    "lodash": "^2.4.1",
+    "log4js": "^0.6.17",
+    "mean-logger": "0.0.1",
+    "method-override": "^2.1.3",
+    "moment": "^2.8.1",
+    "mongoose": "^3.8.14",
+    "morgan": "^1.2.2",
+    "passport": "^0.2.0",
+    "passport-facebook": "^1.0.3",
+    "passport-github": "^0.1.5",
+    "passport-google-oauth": "^0.1.5",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.2",
+    "serve-favicon": "^2.0.1",
+    "serve-static": "^1.5.2",
+    "should": "^4.0.4",
+    "socket.io": "^1.0.6",
+    "string": "^1.9.1",
+    "underscore": "^1.6.0",
+    "urlencode": "^0.2.0",
+    "view-helpers": "^0.1.5"
+  },
+  "devDependencies": {
+    "brfs": "^1.1.2",
+    "browserify": "^4.2.3",
+    "browserify-shim": "^3.6.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-cssmin": "^0.10.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-forever": "^0.4.4",
+    "grunt-karma": "^0.8.3",
+    "grunt-mkdir": "^0.1.2",
+    "grunt-mocha-test": "^0.11.0",
+    "grunt-run": "^0.2.2",
+    "karma": "^0.12.17",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-jasmine": "~0.2",
+    "karma-mocha": "^0.1.6",
+    "mocha": "^1.21.4",
+    "open": "0.0.5",
+    "shelljs": "^0.3.0"
+  },
+  "browser": {
+    "jquery": "./public/js/lib/bower_components/jquery/dist/jquery.js",
+    "angular": "./public/js/lib/bower_components/angular/angular.js",
+    "angular-route": "./public/js/lib/bower_components/angular-route/angular-route.js",
+    "angular-resource": "./public/js/lib/bower_components/angular-resource/angular-resource.js",
+    "angular-sanitize": "./public/js/lib/bower_components/angular-sanitize/angular-sanitize.js",
+    "angular-bootstrap": "./public/js/lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+    "angular-moment": "./public/js/lib/bower_components/angular-moment/angular-moment.js",
+    "lodash": "lodash",
+    "moment": "./public/js/lib/moment.js",
+    "autocomplete": "./public/js/lib/autocomplete.js",
+    "ng-grid": "./public/js/lib/ng-grid.js",
+    "select": "./public/js/lib/select.js",
+    "utils": "./public/js/lib/utils.js",
+    "stacktrace": "./public/js/lib/stacktrace.js",
+    "string": "./public/js/lib/string.min.js"
+  },
+  "browserify-shim": {
+    "jquery": "$",
+    "angular": {
+      "exports": "angular",
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "angular-route": {
+      "exports": null,
+      "depends": [
+        "angular:angular"
+      ]
+    },
+    "angular-resource": {
+      "exports": null,
+      "depends": [
+        "angular:angular"
+      ]
+    },
+    "angular-sanitize": {
+      "exports": null,
+      "depends": [
+        "angular:angular"
+      ]
+    },
+    "angular-bootstrap": {
+      "exports": null,
+      "depends": [
+        "angular:angular"
+      ]
+    },
+    "angular-moment": {
+      "exports": null,
+      "depends": [
+        "angular:angular",
+        "moment:moment"
+      ]
+    },
+    "autocomplete": {
+      "exports": null,
+      "depends": [
+        "angular:angular"
+      ]
+    },
+    "moment": "moment",
+    "ng-grid": {
+      "exports": null,
+      "depends": [
+        "angular:angular"
+      ]
+    },
+    "select": {
+      "exports": null,
+      "depends": [
+        "angular:angular"
+      ]
+    },
+    "stacktrace": {
+      "exports": "printStackTrace"
+    }
   }
 }
