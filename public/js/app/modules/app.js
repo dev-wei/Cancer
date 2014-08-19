@@ -1,4 +1,20 @@
-angular.module('mean', ['ngCookies', 'ngResource', 'ngRoute', 'ui.bootstrap', 'ui.route', 'UserChat.System', 'UserChat.User']);
+'use strict';
 
-angular.module('UserChat.System', []);
-angular.module('UserChat.User', []);
+var angular;
+if(typeof require === 'function'){
+  angular = require('angular');
+}
+
+angular.module('Cancer', [
+  'ngCookies',
+  'ngResource',
+  'ngRoute',
+  'ui.bootstrap',
+  'ui.route'
+]);
+
+if (typeof exports !== 'undefined') {
+  if (typeof module !== 'undefined' && module.exports) {
+    exports = module.exports = null;
+  }
+}

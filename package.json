@@ -70,13 +70,10 @@
     "angular-bootstrap": "./public/js/lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
     "angular-moment": "./public/js/lib/bower_components/angular-moment/angular-moment.js",
     "lodash": "lodash",
-    "moment": "./public/js/lib/moment.js",
-    "autocomplete": "./public/js/lib/autocomplete.js",
-    "ng-grid": "./public/js/lib/ng-grid.js",
-    "select": "./public/js/lib/select.js",
-    "utils": "./public/js/lib/utils.js",
-    "stacktrace": "./public/js/lib/stacktrace.js",
-    "string": "./public/js/lib/string.min.js"
+    "moment": "./public/js/lib/bower_components/moment/moment.js",
+    "ng-grid": "./public/js/lib/bower_components/ng-grid/build/ng-grid.js",
+    "stacktrace": "./public/js/lib/bower_components/stacktrace/stacktrace.js",
+    "string": "./public/js/lib/bower_components/string/lib/string.js"
   },
   "browserify-shim": {
     "jquery": "$",
@@ -117,20 +114,8 @@
         "moment:moment"
       ]
     },
-    "autocomplete": {
-      "exports": null,
-      "depends": [
-        "angular:angular"
-      ]
-    },
     "moment": "moment",
     "ng-grid": {
-      "exports": null,
-      "depends": [
-        "angular:angular"
-      ]
-    },
-    "select": {
       "exports": null,
       "depends": [
         "angular:angular"

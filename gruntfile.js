@@ -32,7 +32,7 @@ module.exports = function (grunt) {
   var browserify = function () {
     var getConfig = function () {
       var dependencies = {
-        exclude: _.keys(pkg.browser)
+        "exclude": _.keys(pkg.browser)
       };
 
       var exportless = function (shim) {
@@ -45,9 +45,9 @@ module.exports = function (grunt) {
 
       var shims = pkg['browserify-shim'];
       var weaklyShimmed = _(shims).pick(exportless).keys().value();
+
       dependencies.source = _(pkg.browser).pick(weaklyShimmed).values().value();
       dependencies.require = _(pkg.browser).omit(isNRAlias).keys().value();
-
       return dependencies;
     };
 
@@ -59,8 +59,8 @@ module.exports = function (grunt) {
       var dependencies = getConfig();
       var dependenciesFlag = (isApp ? '-x' : '-r');
       var src = isApp ? source : dependencies.source;
-      var includes = _.map((
-              isApp ? dependencies.exclude : dependencies.require),
+      var includes = _.map(
+          (isApp ? dependencies.exclude : dependencies.require),
           includeDep);
 
       var cmd = _([
@@ -78,11 +78,9 @@ module.exports = function (grunt) {
     };
   }();
 
-  grunt.log.debug(JSON.stringify(configs));
-
   // configure the tasks
   grunt.initConfig({
-    "pkg" : pkg,
+    "pkg": pkg,
     "configs": configs,
 
     // external browserify (package.json) avoiding grunt-browserify issues
