@@ -34,3 +34,9 @@ node_modules
 
 # Mac
 .DS_Store
+
+# Browserify
+public/js/build/
+
+# Bower components
+public/js/lib/bower_components/
