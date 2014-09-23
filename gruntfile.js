@@ -29,7 +29,7 @@ module.exports = function (grunt) {
     }
   };
 
-  var browserify = function () {
+  var browserifyCmd = function () {
     var getConfig = function () {
       var dependencies = {
         "exclude": _.keys(pkg.browser)
@@ -90,10 +90,10 @@ module.exports = function (grunt) {
         "cwd": __dirname
       },
       "browserify-libs": {
-        "exec": browserify.getCmd(false, './<%= configs.paths.build %>/libs.js')
+        "exec": browserifyCmd.getCmd(false, './<%= configs.paths.build %>/libs.js')
       },
       "browserify-app": {
-        "exec": browserify.getCmd(true, './<%= configs.paths.build %>/app.js', ['./<%= configs.paths.js %>/app/app.js'])
+        "exec": browserifyCmd.getCmd(true, './<%= configs.paths.build %>/app.js', ['./<%= configs.paths.js %>/app/app.js'])
       }
     },
 

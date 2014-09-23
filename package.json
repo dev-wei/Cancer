@@ -43,6 +43,7 @@
     "brfs": "^1.1.2",
     "browserify": "^4.2.3",
     "browserify-shim": "^3.6.0",
+    "expect.js": "^0.3.1",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.5.0",
@@ -58,8 +59,10 @@
     "karma-jasmine": "~0.2",
     "karma-mocha": "^0.1.6",
     "mocha": "^1.21.4",
+    "nodeunit": "^0.9.0",
     "open": "0.0.5",
-    "shelljs": "^0.3.0"
+    "shelljs": "^0.3.0",
+    "should": "^4.0.4"
   },
   "browser": {
     "jquery": "./public/js/lib/bower_components/jquery/dist/jquery.js",
@@ -75,7 +78,7 @@
     "stacktrace": "./public/js/lib/bower_components/stacktrace/stacktrace.js",
     "string": "./public/js/lib/bower_components/string/lib/string.js"
   },
-  "browserify-shim": {
+  "browserify_shim": {
     "jquery": "$",
     "angular": {
       "exports": "angular",
