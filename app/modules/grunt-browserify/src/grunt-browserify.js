@@ -1,29 +1,22 @@
 'use strict';
-
 var _ = require('lodash');
 
-module.exports = function (grunt) {
-  var pkg = grunt.file.readJSON('package.json');
+module.exports = function (browser, shims) {
 
-  var getConfig = function () {
-    var exportLess = function (shim) {
-      return !_.isString(shim) && _.isEmpty(shim.exports);
+  this.getConfig = function () {
+    var weaklyShimmed = _.pick(shims,
+      function (shim) {
+        return !_.isString(shim) && _.isEmpty(shim.exports);
+      }).keys().value();
+
+    return {
+      exclude: _.keys(browser),
+      source: _.pick(browser, weaklyShimmed).values().value(),
+      require: _.omit(browser,
+        function (val, key) {
+          return _.contains(weaklyShimmed, key);
+        }).keys().value()
     };
-
-    var isNRAlias = function (val, key) {
-      return _.contains(weaklyShimmed, key);
-    };
-
-    var dependencies = {
-      exclude: _.keys(pkg.browser)
-    };
-
-    var weaklyShimmed = _.pick(pkg.browserify_shim, exportLess).keys().value();
-    dependencies.source = _.pick(pkg.browser, weaklyShimmed).values().value();
-    dependencies.require = _.omit(pkg.browser, isNRAlias).keys().value();
-
-    grunt.log.debug(JSON.stringify(dependencies, null, 2));
-    return dependencies;
   };
 
   this.getCmd = function (isApp, dest, source) {
@@ -31,7 +24,7 @@ module.exports = function (grunt) {
       return [dependenciesFlag, key];
     };
 
-    var dependencies = getConfig();
+    var dependencies = this.getConfig();
     var dependenciesFlag = (isApp ? '-x' : '-r');
     var src = isApp ? source : dependencies.source;
     var includes = _.map(
@@ -45,7 +38,6 @@ module.exports = function (grunt) {
       src, includes, '-o', dest
     ]).flatten().compact().join(' ');
 
-    grunt.log.debug(cmd);
     return cmd;
   };
 };

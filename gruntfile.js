@@ -2,8 +2,11 @@
 
 var _ = require('lodash');
 var path = require('path');
+var browserify = require('./app/modules/grunt-browserify/src/grunt-browserify');
 
 module.exports = function (grunt) {
+
+  var
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -18,65 +21,19 @@ module.exports = function (grunt) {
 
   // configuration shared across all tasks
   var configs = {
-    "sources": {
-      "js": 'public/js/modules/**/*.js',
-      "jade": 'views/**/*.jade',
-      "test": 'test/**/*.js'
+    sources: {
+      js: 'public/js/modules/**/*.js',
+      jade: 'views/**/*.jade',
+      css: ['public/css/*.css'],
+      test: 'test/**/*.js'
     },
-    "paths": {
-      "js": 'public/js/modules',
-      "build": 'public/js/build'
+    paths: {
+      js: 'public/js/modules',
+      build: 'public/js/build',
+      css: 'public/css',
+      cssBuild: 'public/css/build'
     }
   };
-
-  var browserifyCmd = function () {
-    var getConfig = function () {
-      var dependencies = {
-        "exclude": _.keys(pkg.browser)
-      };
-
-      var exportless = function (shim) {
-        return !_.isString(shim) && _.isEmpty(shim.exports);
-      };
-
-      var isNRAlias = function (val, key) {
-        return _.contains(weaklyShimmed, key);
-      };
-
-      var shims = pkg['browserify-shim'];
-      var weaklyShimmed = _(shims).pick(exportless).keys().value();
-
-      dependencies.source = _(pkg.browser).pick(weaklyShimmed).values().value();
-      dependencies.require = _(pkg.browser).omit(isNRAlias).keys().value();
-      return dependencies;
-    };
-
-    var getCmd = function (isApp, dest, source) {
-      var includeDep = function (key) {
-        return [dependenciesFlag, key];
-      };
-
-      var dependencies = getConfig();
-      var dependenciesFlag = (isApp ? '-x' : '-r');
-      var src = isApp ? source : dependencies.source;
-      var includes = _.map(
-          (isApp ? dependencies.exclude : dependencies.require),
-          includeDep);
-
-      var cmd = _([
-        'node',
-        'node_modules/browserify/bin/cmd.js',
-        '--debug',
-        src, includes, '-o', dest
-      ]).flatten().compact().join(' ');
-
-      return cmd;
-    };
-
-    return {
-      "getCmd": getCmd
-    };
-  }();
 
   // configure the tasks
   grunt.initConfig({
@@ -90,10 +47,10 @@ module.exports = function (grunt) {
         "cwd": __dirname
       },
       "browserify-libs": {
-        "exec": browserifyCmd.getCmd(false, './<%= configs.paths.build %>/libs.js')
+        "exec": browserify.getCmd(false, './<%= configs.paths.build %>/libs.js')
       },
       "browserify-app": {
-        "exec": browserifyCmd.getCmd(true, './<%= configs.paths.build %>/app.js', ['./<%= configs.paths.js %>/app/app.js'])
+        "exec": browserify.getCmd(true, './<%= configs.paths.build %>/app.js', ['./<%= configs.paths.js %>/app/app.js'])
       }
     },
 
