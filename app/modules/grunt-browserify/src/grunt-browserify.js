@@ -4,15 +4,15 @@ var _ = require('lodash');
 module.exports = function (browser, shims) {
 
   this.getConfig = function () {
-    var weaklyShimmed = _.pick(shims,
+    var weaklyShimmed = _(shims).pick(
       function (shim) {
         return !_.isString(shim) && _.isEmpty(shim.exports);
       }).keys().value();
 
     return {
       exclude: _.keys(browser),
-      source: _.pick(browser, weaklyShimmed).values().value(),
-      require: _.omit(browser,
+      source: _(browser).pick(weaklyShimmed).values().value(),
+      require: _(browser).omit(
         function (val, key) {
           return _.contains(weaklyShimmed, key);
         }).keys().value()
