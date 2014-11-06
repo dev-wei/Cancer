@@ -2,11 +2,11 @@
 
 var _ = require('lodash');
 var path = require('path');
-var browserify = require('./app/modules/grunt-browserify/src/grunt-browserify');
+var config = require('./config/config');
+var GruntBrowserify = require(config.modules['grunt-browserify']);
 
 module.exports = function (grunt) {
 
-  var
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -19,7 +19,9 @@ module.exports = function (grunt) {
   // package json
   var pkg = grunt.file.readJSON('package.json');
 
-  // configuration shared across all tasks
+  var browserify = new GruntBrowserify(
+    pkg.browser, pkg['browserify-shim']);
+
   var configs = {
     sources: {
       js: 'public/js/modules/**/*.js',
@@ -40,7 +42,6 @@ module.exports = function (grunt) {
     "pkg": pkg,
     "configs": configs,
 
-    // external browserify (package.json) avoiding grunt-browserify issues
     "run": {
       "options": {
         "failOnError": true,
@@ -57,7 +58,7 @@ module.exports = function (grunt) {
     "copy": {
       "build": {
         "expand": true,
-        "src": [ '**' ],
+        "src": ['**'],
         "dest": 'build'
       }
     },
@@ -65,7 +66,7 @@ module.exports = function (grunt) {
     "mkdir": {
       "all": {
         "options": {
-          "create": [ configs.paths.build ]
+          "create": [configs.paths.build]
         }
       }
     },
@@ -143,32 +144,32 @@ module.exports = function (grunt) {
 
   // Tasks
   grunt.registerTask(
-      'default',
-      ['clean:all']);
+    'default',
+    ['clean:all']);
 
   grunt.registerTask(
-      'build', 'Default build which generates the app bundle.',
-      'build:app');
+    'build',
+    ['build:app']);
 
   grunt.registerTask(
-      'build:app',
-      ['mkdir:all', 'run:browserify-app']);
+    'build:app',
+    ['mkdir:all', 'run:browserify-app']);
 
   grunt.registerTask(
-      'build:libs',
-      ['mkdir:all', 'run:browserify-libs']);
+    'build:libs',
+    ['mkdir:all', 'run:browserify-libs']);
 
   grunt.registerTask(
-      'build:all',
-      ['mkdir:all', 'run:browserify-libs', 'run:browserify-app']);
+    'build:all',
+    ['mkdir:all', 'run:browserify-libs', 'run:browserify-app']);
 
   grunt.registerTask(
-      'test',
-      'Runs mocha (integration) and karma (unit) tests',
-      ['karma:unit', 'mochaTest']);
+    'test',
+    'Runs mocha (integration) and karma (unit) tests',
+    ['karma:unit', 'mochaTest']);
 
   grunt.registerTask(
-      'dev',
-      'Serves a dev server and bundles/tests/lints when files change.',
-      ['build', 'karma:watch:start', 'watch']);
+    'dev',
+    'Serves a dev server and bundles/tests/lints when files change.',
+    ['build', 'karma:watch:start', 'watch']);
 };
