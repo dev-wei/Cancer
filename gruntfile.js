@@ -148,10 +148,6 @@ module.exports = function (grunt) {
     ['clean:all']);
 
   grunt.registerTask(
-    'build',
-    ['build:app']);
-
-  grunt.registerTask(
     'build:app',
     ['mkdir:all', 'run:browserify-app']);
 
@@ -160,7 +156,7 @@ module.exports = function (grunt) {
     ['mkdir:all', 'run:browserify-libs']);
 
   grunt.registerTask(
-    'build:all',
+    'build',
     ['mkdir:all', 'run:browserify-libs', 'run:browserify-app']);
 
   grunt.registerTask(
