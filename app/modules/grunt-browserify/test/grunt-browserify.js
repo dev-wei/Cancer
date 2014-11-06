@@ -42,10 +42,22 @@ describe('grunt-browserify', function () {
     });
   });
 
-  it('it should generate browserfy command.', function () {
+  it('it should generate browserfy command for libs.js.', function () {
     var browserify = new Browserify(browser, shims);
-    expect(browserify.getCmd(false, './public/build/libs.js')).to.eql("node node_modules/browserify/bin/cmd.js --debug ./public/js/lib/jquery-ui-1.11.1/jquery-ui.js ./public/js/lib/jquery.event.drag-2.2/jquery.event.drag-2.2.js -r jquery -r bytebuffer -o ./public/build/libs.js");
+    expect(browserify.getCmd(false, './public/build/libs.js'))
+      .to.eql("node node_modules/browserify/bin/cmd.js --debug ./public/js/lib/jquery-ui-1.11.1/jquery-ui.js ./public/js/lib/jquery.event.drag-2.2/jquery.event.drag-2.2.js -r jquery -r bytebuffer -o ./public/build/libs.js");
   });
 
+  it('it should generate browserfy command for app.js.', function () {
+    var browserify = new Browserify(browser, shims);
+    expect(browserify.getCmd(true, './public/build/app.js', ['./public/app/app.js']))
+      .to.eql("node node_modules/browserify/bin/cmd.js --debug ./public/app/app.js -x jquery -x jquery-ui -x jquery-event-drag -x bytebuffer -o ./public/build/app.js");
+  });
+
+  it('it should generate browserfy command for app.js with code coverage.', function () {
+    var browserify = new Browserify(browser, shims);
+    expect(browserify.getCmd(true, './public/build/app.coverage.js', ['./public/app/app.js'], ['-t browserify-istanbul']))
+      .to.eql("node node_modules/browserify/bin/cmd.js --debug ./public/app/app.js -x jquery -x jquery-ui -x jquery-event-drag -x bytebuffer -o ./public/build/app.coverage.js -t browserify-istanbul");
+  });
 });
 

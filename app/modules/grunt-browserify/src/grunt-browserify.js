@@ -19,7 +19,7 @@ module.exports = function (browser, shims) {
     };
   };
 
-  this.getCmd = function (isApp, dest, source) {
+  this.getCmd = function (isApp, dest, source, cliFlags) {
     var includeDep = function (key) {
       return [dependenciesFlag, key];
     };
@@ -35,7 +35,7 @@ module.exports = function (browser, shims) {
       'node',
       'node_modules/browserify/bin/cmd.js',
       '--debug',
-      src, includes, '-o', dest
+      src, includes, '-o', dest, cliFlags
     ]).flatten().compact().join(' ');
 
     return cmd;
