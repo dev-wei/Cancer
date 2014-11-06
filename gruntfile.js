@@ -15,6 +15,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-run');
   grunt.loadNpmTasks('grunt-forever');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // package json
   var pkg = grunt.file.readJSON('package.json');
@@ -52,6 +53,9 @@ module.exports = function (grunt) {
       },
       "browserify-app": {
         "exec": browserify.getCmd(true, './<%= configs.paths.build %>/app.js', ['./<%= configs.paths.js %>/app/app.js'])
+      },
+      "browserify-app-coverage": {
+        "exec": browserify.getCmd(true, './<%= configs.paths.build %>/app.coverage.js', ['./<%= configs.paths.js %>/app/app.js'], ['-t browserify-istanbul'])
       }
     },
 
@@ -139,13 +143,34 @@ module.exports = function (grunt) {
       "app": {
         "src": path.join(configs.paths.build, 'app.js')
       }
+    },
+
+    uglify: {
+      options: {
+        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+        '<%= grunt.template.today("yyyy-mm-dd") %> */'
+      },
+      app: {
+        options: {
+          sourceMap: true,
+          sourceMapName: './<%= configs.paths.build %>/app.map'
+        },
+        files: {
+          "./<%= configs.paths.build %>/app.min.js": ['./<%= configs.paths.build %>/app.js']
+        }
+      },
+      libs: {
+        files: {
+          "./<%= configs.paths.build %>/libs.min.js": ['./<%= configs.paths.build %>/libs.js']
+        }
+      }
     }
   });
 
   // Tasks
   grunt.registerTask(
     'default',
-    ['clean:all']);
+    ['build']);
 
   grunt.registerTask(
     'build:app',
@@ -156,16 +181,10 @@ module.exports = function (grunt) {
     ['mkdir:all', 'run:browserify-libs']);
 
   grunt.registerTask(
+    'build:coverage',
+    ['mkdir:all', 'run:browserify-libs', 'run:browserify-app-coverage']);
+
+  grunt.registerTask(
     'build',
-    ['mkdir:all', 'run:browserify-libs', 'run:browserify-app']);
-
-  grunt.registerTask(
-    'test',
-    'Runs mocha (integration) and karma (unit) tests',
-    ['karma:unit', 'mochaTest']);
-
-  grunt.registerTask(
-    'dev',
-    'Serves a dev server and bundles/tests/lints when files change.',
-    ['build', 'karma:watch:start', 'watch']);
+    ['mkdir:all', 'run:browserify-libs', 'run:browserify-app', 'uglify:app', 'uglify:libs']);
 };

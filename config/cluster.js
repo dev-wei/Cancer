@@ -1,3 +1,5 @@
+'use strict';
+
 var cluster = require('cluster'),
     os = require('os'),
     _ = require('underscore'),
@@ -6,7 +8,7 @@ var cluster = require('cluster'),
     callback = require('../public/js/lib/my_components/callback/src/callback');
 
 module.exports = function (options) {
-  'use strict';
+
 
   // Constants
   var MASTER = 'MASTER';
