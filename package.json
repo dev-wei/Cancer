@@ -94,6 +94,12 @@
     "moment": "moment",
     "stacktrace": "stacktrace"
   },
+  "browserify": {
+    "transform": [
+      "browserify-shim",
+      "brfs"
+    ]
+  },
   "browserify_shim": {
     "jquery": "$",
     "angular": {
