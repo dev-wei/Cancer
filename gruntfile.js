@@ -24,14 +24,14 @@ module.exports = function (grunt) {
   var browserify = new GruntBrowserify(
     pkg.browser, pkg['browserify-shim']);
 
-  var toMochaTest = function(files){
-    return _.map(files, function(file){
+  var toMochaTest = function (files) {
+    return _.map(files, function (file) {
       return file.folder + "/**/" + file.mask;
     })
   };
 
-  var toMochaIstanbul = function(files){
-    return _.map(files, function(file){
+  var toMochaIstanbul = function (files) {
+    return _.map(files, function (file) {
       return file.folder;
     })
   };
@@ -41,10 +41,16 @@ module.exports = function (grunt) {
       "js": 'public/js/modules/**/*.js',
       "jade": 'views/**/*.jade',
       "css": ['public/css/*.css'],
-      "test": [{
-        "folder": 'tests',
-        "mask": '*.spec.*'
-      }]
+      "test": [
+        {
+          "folder": 'tests',
+          "mask": '*.spec.*'
+        },
+        {
+          "folder": 'app/modules/grunt-browserify',
+          "mask": '*.spec.*'
+        }
+      ]
     },
     paths: {
       js: 'public/js/modules',
@@ -54,6 +60,7 @@ module.exports = function (grunt) {
     }
   };
 
+  grunt.log.debug(JSON.stringify(toMochaTest(configs.sources.test)));
   // configure the tasks
   grunt.initConfig({
     "pkg": pkg,
@@ -183,9 +190,9 @@ module.exports = function (grunt) {
 
     mocha_istanbul: {
       coverage: {
-        src: ['tests'],
+        src: toMochaIstanbul(configs.sources.test),
         options: {
-          mask: '*.spec.js',
+          mask: '**/*.spec.js',
           reportFormats: ['teamcity', 'html', 'text']
         }
       }
