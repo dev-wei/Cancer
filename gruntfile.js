@@ -16,6 +16,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-run');
   grunt.loadNpmTasks('grunt-forever');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-mocha-istanbul');
 
   // package json
   var pkg = grunt.file.readJSON('package.json');
@@ -89,15 +90,13 @@ module.exports = function (grunt) {
 
     "karma": {
       "options": {
-        "configFile": 'karma.conf.js'
+        "configFile": 'karma.conf.js',
+        "singleRun": true
       },
       "unit": {
         "singleRun": true
       },
       "watch": {
-        "options": {
-          "reporters": ['progress']
-        },
         "autoWatch": false,
         "singleRun": false,
         "background": true
@@ -109,7 +108,9 @@ module.exports = function (grunt) {
         "options": {
           "reporter": 'spec'
         },
-        "src": []
+        "src": [
+          'tests/**/*.spec.js'
+        ]
       }
     },
 
@@ -164,6 +165,16 @@ module.exports = function (grunt) {
           "./<%= configs.paths.build %>/libs.min.js": ['./<%= configs.paths.build %>/libs.js']
         }
       }
+    },
+
+    mocha_istanbul: {
+      coverage: {
+        src: ['tests'],
+        options: {
+          mask: '*.spec.js',
+          reportFormats: ['cobertura','lcovonly', 'teamcity']
+        }
+      }
     }
   });
 
@@ -187,4 +198,8 @@ module.exports = function (grunt) {
   grunt.registerTask(
     'build',
     ['mkdir:all', 'run:browserify-libs', 'run:browserify-app', 'uglify:app', 'uglify:libs']);
+
+  grunt.registerTask(
+    'test',
+    ['mochaTest']);
 };
