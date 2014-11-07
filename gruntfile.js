@@ -106,7 +106,8 @@ module.exports = function (grunt) {
     "mochaTest": {
       "test": {
         "options": {
-          "reporter": 'spec'
+          "reporter": 'mocha-teamcity-reporter',
+          "quiet": false
         },
         "src": [
           'tests/**/*.spec.js'
@@ -171,8 +172,7 @@ module.exports = function (grunt) {
       coverage: {
         src: ['tests'],
         options: {
-          mask: '*.spec.js',
-          reportFormats: ['cobertura','lcovonly', 'teamcity']
+          mask: '*.spec.js'
         }
       }
     }
@@ -202,4 +202,8 @@ module.exports = function (grunt) {
   grunt.registerTask(
     'test',
     ['mochaTest']);
+
+  grunt.registerTask(
+    'test:coverage',
+    ['mocha_istanbul']);
 };
