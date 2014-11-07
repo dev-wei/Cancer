@@ -186,7 +186,7 @@ module.exports = function (grunt) {
         src: ['tests'],
         options: {
           mask: '*.spec.js',
-          reportFormats: ['teamcity', 'html']
+          reportFormats: ['teamcity', 'html', 'text']
         }
       }
     }

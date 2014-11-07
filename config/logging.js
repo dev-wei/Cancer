@@ -1,29 +1,28 @@
+'use strict';
+
+var _ = require('lodash');
 var path = require('path');
 var log4js = require('log4js');
 var config = require('./config');
 
-module.exports = (function () {
-    'use strict';
+var Logger = function () {
+  log4js.configure(
+    path.join(
+      config.root,
+      'config/env/',
+      config.env + '.log4js.json'));
 
-    (function () {
-        log4js.configure(path.join(config.root, 'config/env/', config.env + '.log4js.json'));
-    }());
+  this.getLogger = function (categoryName) {
+    if (_.isString(categoryName) &&
+      !_.isEmpty(categoryName)) {
+      return log4js.getLogger(categoryName);
+    }
+    throw 'category can not be empty';
+  };
 
-    var getLogger = function (categoryName) {
-        if (categoryName &&
-            typeof categoryName === 'string' &&
-            categoryName !== '') {
-            return log4js.getLogger(categoryName);
-        }
-        throw 'category can not be empty';
-    };
+  this.getDefaultLogger = function () {
+    return log4js.getDefaultLogger();
+  };
+};
 
-    var getDefaultLogger = function () {
-        return log4js.getDefaultLogger();
-    };
-
-    return {
-        getLogger: getLogger,
-        getDefaultLogger: getDefaultLogger
-    };
-}());
+module.exports = new Logger();
