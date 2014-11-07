@@ -100,7 +100,7 @@
       "brfs"
     ]
   },
-  "browserify_shim": {
+  "browserify-shim": {
     "jquery": "$",
     "angular": {
       "exports": "angular",
