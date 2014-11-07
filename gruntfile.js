@@ -183,10 +183,10 @@ module.exports = function (grunt) {
 
     mocha_istanbul: {
       coverage: {
-        src: toMochaIstanbul(configs.sources.test),
+        src: ['tests'],
         options: {
           mask: '*.spec.js',
-          reportFormats: ['cobertura', 'lcovonly']
+          reportFormats: ['teamcity', 'html']
         }
       }
     }
