@@ -1,4 +1,11 @@
 'use strict';
-require('./config/cluster')();
+var config = require('./config/config');
+
+if (config.env === 'local') {
+
+} else {
+  require('./config/cluster')();
+}
+
 
 

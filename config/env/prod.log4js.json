@@ -1,14 +1,14 @@
 {
-    "appenders": [
-        {
-            "type": "console"
-        },
-        {
-            "type": "file",
-            "filename": "cancer.log",
-            "maxLogSize": 10240,
-            "backups": 3
-        }
-    ],
-    "replaceConsole": true
+  "appenders": [
+    {
+      "type": "console"
+    },
+    {
+      "type": "file",
+      "filename": "cancer.log",
+      "maxLogSize": 10240,
+      "backups": 3
+    }
+  ],
+  "replaceConsole": true
 }

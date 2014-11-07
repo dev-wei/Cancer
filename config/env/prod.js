@@ -1,6 +1,6 @@
 module.exports = {
-    db: 'mongodb://localhost/userchat-prod',
-    app: {
-        name: 'Cancer'
-    }
+  db: 'mongodb://localhost/userchat-prod',
+  app: {
+    name: 'Cancer'
+  }
 };
