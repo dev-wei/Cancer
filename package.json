@@ -85,14 +85,14 @@
   "browser": {
     "jquery": "jquery",
     "angular": "angular",
-    "angular-route": "angular-route",
-    "angular-resource": "angular-resource",
-    "angular-sanitize": "angular-sanitize",
-    "angular-bootstrap": "angular-bootstrap",
-    "angular-moment": "angular-moment",
+    "angular-route": "./node_modules/angular-route/angular-route.js",
+    "angular-resource": "./node_modules/angular-resource/angular-resource.js",
+    "angular-sanitize": "./node_modules/angular-sanitize/angular-sanitize.js",
+    "angular-bootstrap": "./node_modules/angular-bootstrap/ui-bootstrap.js",
+    "angular-moment": "./node_modules/angular-moment/angular-moment.js",
     "lodash": "lodash",
-    "moment": "moment",
-    "stacktrace": "stacktrace"
+    "moment": "./node_modules/moment/moment.js",
+    "stacktrace": "./node_modules/stacktrace/bin/stack.js"
   },
   "browserify": {
     "transform": [
@@ -140,12 +140,6 @@
       ]
     },
     "moment": "moment",
-    "ng-grid": {
-      "exports": null,
-      "depends": [
-        "angular:angular"
-      ]
-    },
     "stacktrace": {
       "exports": "printStackTrace"
     }
