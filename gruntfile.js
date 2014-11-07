@@ -24,12 +24,27 @@ module.exports = function (grunt) {
   var browserify = new GruntBrowserify(
     pkg.browser, pkg['browserify-shim']);
 
+  var toMochaTest = function(files){
+    return _.map(files, function(file){
+      return file.folder + "/**/" + file.mask;
+    })
+  };
+
+  var toMochaIstanbul = function(files){
+    return _.map(files, function(file){
+      return file.folder;
+    })
+  };
+
   var configs = {
-    sources: {
-      js: 'public/js/modules/**/*.js',
-      jade: 'views/**/*.jade',
-      css: ['public/css/*.css'],
-      test: 'test/**/*.js'
+    "sources": {
+      "js": 'public/js/modules/**/*.js',
+      "jade": 'views/**/*.jade',
+      "css": ['public/css/*.css'],
+      "test": [{
+        "folder": 'tests',
+        "mask": '*.spec.*'
+      }]
     },
     paths: {
       js: 'public/js/modules',
@@ -103,18 +118,6 @@ module.exports = function (grunt) {
       }
     },
 
-    "mochaTest": {
-      "test": {
-        "options": {
-          "reporter": 'mocha-teamcity-reporter',
-          "quiet": false
-        },
-        "src": [
-          'tests/**/*.spec.js'
-        ]
-      }
-    },
-
     "watch": {
       "build": {
         "files": [configs.sources.js],
@@ -168,11 +171,22 @@ module.exports = function (grunt) {
       }
     },
 
+    "mochaTest": {
+      "test": {
+        "options": {
+          "reporter": 'mocha-teamcity-reporter',
+          "quiet": false
+        },
+        "src": toMochaTest(configs.sources.test)
+      }
+    },
+
     mocha_istanbul: {
       coverage: {
-        src: ['tests'],
+        src: toMochaIstanbul(configs.sources.test),
         options: {
-          mask: '*.spec.js'
+          mask: '*.spec.js',
+          reportFormats: ['cobertura', 'lcovonly']
         }
       }
     }
@@ -201,7 +215,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask(
     'test',
-    ['mochaTest']);
+    ['mochaTest:test']);
 
   grunt.registerTask(
     'test:coverage',
