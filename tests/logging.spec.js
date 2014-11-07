@@ -16,6 +16,10 @@ describe('Logging', function () {
     expect(logging.getLogger('test')).to.be.ok();
   });
 
+  it('Should be able to throw exception when getting logger with empty name.', function () {
+    expect(logging.getLogger).to.throwError();
+  });
+
   it('Should be able to get default logger.', function () {
     expect(logging.getDefaultLogger()).to.be.ok();
   });
