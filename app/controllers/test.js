@@ -1,9 +1,10 @@
-/**
- * Module dependencies.
- */
-var _ = require('underscore');
+'use strict';
+var _ = require('lodash');
 
-exports.render = function(req, res) {
-    'use strict';
+var TestController = function () {
+  this.tests = function (req, res) {
     res.render('tests/' + req.param('name'), {});
+  };
 };
+
+module.exports = new TestController();

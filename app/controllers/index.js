@@ -1,11 +1,12 @@
-/**
- * Module dependencies.
- */
-var mongoose = require('mongoose'),
-    _ = require('underscore');
+'use strict';
+var _ = require('lodash');
 
-exports.render = function(req, res) {
+var IndexController = function () {
+  this.index = function (req, res) {
     res.render('index', {
-        user: req.user ? JSON.stringify(req.user) : "null"
+      user: req.user ? JSON.stringify(req.user) : "null"
     });
+  };
 };
+
+module.exports = new IndexController();
