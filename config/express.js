@@ -2,7 +2,6 @@
  * Module dependencies.
  */
 var path = require('path'),
-  http = require('http'),
   session = require('express-session'),
   compression = require('compression'),
   favicon = require('serve-favicon'),
@@ -16,7 +15,7 @@ var path = require('path'),
   helpers = require('view-helpers'),
   config = require('./config');
 
-module.exports = function (logger, port, app, passport) {
+module.exports = function (logger, port, app, passport, http) {
   if (!app) {
     app = require('express')();
   }
@@ -27,6 +26,10 @@ module.exports = function (logger, port, app, passport) {
 
   if (!logger) {
     logger = require('./logging').getDefaultLogger();
+  }
+
+  if (!http) {
+    http = require('http');
   }
 
   app.set('showStackError', true);
