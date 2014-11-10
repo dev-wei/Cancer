@@ -6,7 +6,7 @@ var _ = require('lodash');
 var string = require('string');
 var logging = require('./logging');
 
-module.exports = function (options) {
+module.exports = function (options, workerLoader) {
 
   var MASTER = 'MASTER';
   var WORKER = _.template('WORKER_<%=index%>');
@@ -67,24 +67,7 @@ module.exports = function (options) {
       WORKER({"index": cluster.worker.id}));
     logger.debug('Starting Worker......');
 
-//        server = loader(workerLogger);
-//        if (!server) {
-//            return;
-//        }
-//
-//        if (typeof server.on === 'function') {
-//            server.on('close', function () {
-//                return process.exit();
-//            });
-//        }
-//
-//        if (typeof server.close === 'function') {
-//            return process.on('message', function (msg) {
-//                if (msg === 'quit') {
-//                    return server.close();
-//                }
-//            });
-//        }
+    workerLoader(logger);
 
     logger.debug('Ending Worker......');
     return logger;
@@ -93,5 +76,5 @@ module.exports = function (options) {
   if (cluster.isMaster) {
     return runMaster();
   }
-  return runWorker();
+  return runWorker(workerLoader);
 };

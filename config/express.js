@@ -2,20 +2,33 @@
  * Module dependencies.
  */
 var path = require('path'),
+  http = require('http'),
   session = require('express-session'),
   compression = require('compression'),
   favicon = require('serve-favicon'),
-  logger = require('morgan'),
+  morgan = require('morgan'),
   serveStatic = require('serve-static'),
   cookieParser = require('cookie-parser'),
 //methodOverride = require('method-override'),
   bodyParser = require('body-parser'),
-  json = require('json-middleware'),
+//json = require('json-middleware'),
   MongoStore = require('connect-mongo')(session),
   helpers = require('view-helpers'),
   config = require('./config');
 
-module.exports = function (app, passport, db) {
+module.exports = function (logger, port, app, passport) {
+  if (!app) {
+    app = require('express')();
+  }
+
+  if (!passport) {
+    passport = require('passport');
+  }
+
+  if (!logger) {
+    logger = require('./logging').getDefaultLogger();
+  }
+
   app.set('showStackError', true);
 
   if (config.env !== 'prod') {
@@ -51,29 +64,26 @@ module.exports = function (app, passport, db) {
   }));
 
   //Enable logger
-  app.use(logger('dev'));
+  app.use(morgan('dev'));
 
   //express/mongo session storage
-  var sess = {
+  var sessionConfig = {
     secret: 'Cancer',
     saveUninitialized: true,
     resave: true,
     cookie: {maxAge: config.cookieAge}
   };
 
-  if(config.env === 'prod'){
+  if (config.env === 'prod') {
     app.set('trust proxy', 1);
-    sess.cookie.secure = true;
-  }
-
-  if(config.env !== 'local'){
-    sess.store = new MongoStore({
+    sessionConfig.cookie.secure = true;
+    sessionConfig.store = new MongoStore({
       db: config.db,
       collection: 'sessions'
     });
   }
 
-  app.use(session(sess));
+  app.use(session(sessionConfig));
 
   //dynamic helpers
   app.use(helpers(config.app.name));
@@ -89,4 +99,10 @@ module.exports = function (app, passport, db) {
     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
     next();
   });
+
+  var server = http.createServer(app).listen(config.port, function () {
+    logger.info('>>> Cancer project is listening on port: ' + server.address().port);
+  });
+
+  return app;
 };
