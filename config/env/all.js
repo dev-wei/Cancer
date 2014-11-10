@@ -8,5 +8,6 @@ module.exports = {
   db: process.env.MONGOHQ_URL,
   modules: {
     "grunt-browserify": path.resolve(rootPath, 'app/modules/grunt-browserify/src/grunt-browserify.js')
-  }
+  },
+  cookieAge: 120 * 60 * 1000
 };
