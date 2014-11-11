@@ -7,8 +7,6 @@ describe('Express', function () {
   var expect = chai.expect;
   chai.use(sinonChai);
 
-  var express;
-  var port = 1000;
   var app = {
     set: function () {
     },
@@ -18,19 +16,10 @@ describe('Express', function () {
     },
     locals: {}
   };
-  var logger = {};
   var passport = {
     initialize: function () {
     },
     session: function () {
-    }
-  };
-  var http = {
-    createServer: function () {
-      return {
-        listen: function (port, callback) {
-        }
-      };
     }
   };
 
@@ -38,7 +27,7 @@ describe('Express', function () {
   });
 
   it('Should have config resolved correctly.', function () {
-    express = require('../config/express')(logger, port, app, passport, http);
+    var express = require('../config/express')(app, passport);
     expect(express).to.be.ok();
   });
 });

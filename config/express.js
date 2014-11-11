@@ -15,21 +15,13 @@ var path = require('path'),
   helpers = require('view-helpers'),
   config = require('./config');
 
-module.exports = function (logger, port, app, passport, http) {
+module.exports = function (app, passport) {
   if (!app) {
     app = require('express')();
   }
 
   if (!passport) {
     passport = require('passport');
-  }
-
-  if (!logger) {
-    logger = require('./logging').getDefaultLogger();
-  }
-
-  if (!http) {
-    http = require('http');
   }
 
   app.set('showStackError', true);
@@ -101,10 +93,6 @@ module.exports = function (logger, port, app, passport, http) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
     next();
-  });
-
-  var server = http.createServer(app).listen(config.port, function () {
-    logger.info('>>> Cancer project is listening on port: ' + server.address().port);
   });
 
   return app;

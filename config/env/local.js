@@ -1,4 +1,4 @@
 module.exports = {
-  db: 'mongodb://localhost/cancer-dev',
+  db: 'mongodb://mwei-db.cloudapp.net:27017/cancer-dev',
   app: {name: 'Cancer'}
 };
