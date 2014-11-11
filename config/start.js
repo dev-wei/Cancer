@@ -1,10 +1,6 @@
-/**
- * Module dependencies
- */
-var express = require('express'),
-  path = require('path'),
+'use strict';
+var path = require('path'),
   passport = require('passport'),
-  http = require('http'),
   config = require('./config'),
 //auth = require('./config/middlewares/authorization'),
   mongoose = require('mongoose');
@@ -28,29 +24,13 @@ module.exports = function (logger, http) {
   });
 
   //Bootstrap models
-  //var models_path = path.join(config.root + '/app/models');
-  //var walk = function (path) {
-  //  fs.readdirSync(path).forEach(function (file) {
-  //    var newPath = path + '/' + file;
-  //    var stat = fs.statSync(newPath);
-  //    if (stat.isFile()) {
-  //      if (/(.*)\.(js$|coffee$)/.test(file)) {
-  //        require(newPath);
-  //      }
-  //    } else if (stat.isDirectory()) {
-  //      walk(newPath);
-  //    }
-  //  });
-  //};
-  //walk(models_path);
+  require('./models');
 
   //bootstrap passport config
   //require('./config/passport')(passport);
 
-  var app = express();
-
-  //express settings
-  require('./express')(app, passport);
+  var app = require('express')();
+  require('./express')(app, passport, db);
 
   //Bootstrap routes
   //require('./config/routes')(app, passport, auth);

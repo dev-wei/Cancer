@@ -1,6 +1,4 @@
-/**
- * Module dependencies.
- */
+'use strict';
 var path = require('path'),
   session = require('express-session'),
   compression = require('compression'),
@@ -15,7 +13,7 @@ var path = require('path'),
   helpers = require('view-helpers'),
   config = require('./config');
 
-module.exports = function (app, passport) {
+module.exports = function (app, passport, db) {
   if (!app) {
     app = require('express')();
   }
@@ -73,7 +71,7 @@ module.exports = function (app, passport) {
     app.set('trust proxy', 1);
     sessionConfig.cookie.secure = true;
     sessionConfig.store = new MongoStore({
-      db: config.db,
+      db: db,
       collection: 'sessions'
     });
   }
