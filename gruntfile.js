@@ -221,11 +221,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask(
     'build:coverage',
-    ['mkdir:all', 'run:browserify-libs', 'run:browserify-app-coverage']);
+    ['build:libs', 'run:browserify-app-coverage']);
 
   grunt.registerTask(
     'build',
-    ['mkdir:all', 'run:browserify-libs', 'run:browserify-app', 'uglify:app', 'uglify:libs']);
+    ['build:libs', 'run:browserify-app', 'uglify:app', 'uglify:libs']);
 
   grunt.registerTask(
     'test',
