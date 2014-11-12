@@ -22,7 +22,9 @@ module.exports = function (grunt) {
   var pkg = grunt.file.readJSON('package.json');
 
   var browserify = new GruntBrowserify(
-    pkg.browser, pkg['browserify-shim']);
+    pkg['browser-sources'],
+    pkg.browser,
+    pkg['browserify-shim']);
 
   var toMochaTest = function (files) {
     return _.map(files, function (file) {
@@ -52,11 +54,12 @@ module.exports = function (grunt) {
         }
       ]
     },
-    paths: {
-      js: 'public/js/modules',
-      build: 'public/js/build',
-      css: 'public/css',
-      cssBuild: 'public/css/build'
+    "paths": {
+      "jsLibs" : 'js',
+      "js": 'public/js/modules',
+      "build": 'public/js/build',
+      "css": 'public/css',
+      "cssBuild": 'public/css/build'
     }
   };
 
@@ -82,19 +85,20 @@ module.exports = function (grunt) {
       }
     },
 
-    "copy": {
-      "build": {
-        "expand": true,
-        "src": ['**'],
-        "dest": 'build'
-      }
-    },
-
     "mkdir": {
       "all": {
         "options": {
           "create": [configs.paths.build]
         }
+      }
+    },
+
+    "copy": {
+      "browserify": {
+        "expand": true,
+        "flatten": true,
+        "src": browserify.getBrowserSourceFiles(),
+        "dest": configs.paths.jsLibs
       }
     },
 
@@ -154,6 +158,9 @@ module.exports = function (grunt) {
       },
       "app": {
         "src": path.join(configs.paths.build, 'app.js')
+      },
+      "browserify": {
+        "src": configs.paths.jsLibs
       }
     },
 
@@ -210,7 +217,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask(
     'build:libs',
-    ['mkdir:all', 'run:browserify-libs']);
+    ['mkdir:all', 'copy:browserify', 'run:browserify-libs', 'clean:browserify']);
 
   grunt.registerTask(
     'build:coverage',

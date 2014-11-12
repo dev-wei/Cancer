@@ -1,7 +1,8 @@
 'use strict';
 var _ = require('lodash');
+var path = require('path');
 
-module.exports = function (browser, shims) {
+module.exports = function (browserSources, browser, shims) {
 
   this.getConfig = function () {
     var weaklyShimmed = _(shims).pick(
@@ -17,6 +18,10 @@ module.exports = function (browser, shims) {
           return _.contains(weaklyShimmed, key);
         }).keys().value()
     };
+  };
+
+  this.getBrowserSourceFiles = function () {
+    return _.values(browserSources);
   };
 
   this.getCmd = function (isApp, dest, source, cliFlags) {

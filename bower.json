@@ -1,0 +1,28 @@
+{
+  "name": "cancer",
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "angular": "~1.3.2",
+    "angular-route": "~1.3.2",
+    "angular-resource": "~1.3.2",
+    "angular-sanitize": "~1.3.2",
+    "angular-bootstrap": "~0.11.2",
+    "angular-moment": "~0.8.2",
+    "stacktrace": "~0.6.2",
+    "lodash": "~2.4.1"
+  },
+  "version": "0.0.1",
+  "homepage": "https://github.com/dev-wei/Cancer",
+  "authors": [
+    "dev.wei@gmail.com"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

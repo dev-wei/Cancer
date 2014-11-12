@@ -86,17 +86,29 @@
     "sinon-chai": "^2.6.0",
     "sourcemap": "^0.1.0"
   },
+  "browser-sources": {
+    "jquery": "./bower_components/jquery/dist/jquery.js",
+    "angular": "./bower_components/angular/angular.js",
+    "angular-route": "./bower_components/angular-route/angular-route.js",
+    "angular-resource": "./bower_components/angular-resource/angular-resource.js",
+    "angular-sanitize": "./bower_components/angular-sanitize/angular-sanitize.js",
+    "angular-bootstrap": "./bower_components/angular-bootstrap/ui-bootstrap.js",
+    "angular-moment": "./bower_components/angular-moment/angular-moment.js",
+    "lodash": "./bower_components/lodash/dist/lodash.js",
+    "moment": "./bower_components/moment/moment.js",
+    "stacktrace": "./bower_components/stacktrace/stacktrace.js"
+  },
   "browser": {
-    "jquery": "jquery",
-    "angular": "angular",
-    "angular-route": "./node_modules/angular-route/angular-route.js",
-    "angular-resource": "./node_modules/angular-resource/angular-resource.js",
-    "angular-sanitize": "./node_modules/angular-sanitize/angular-sanitize.js",
-    "angular-bootstrap": "./node_modules/angular-bootstrap/ui-bootstrap.js",
-    "angular-moment": "./node_modules/angular-moment/angular-moment.js",
-    "lodash": "lodash",
-    "moment": "./node_modules/moment/moment.js",
-    "stacktrace": "./node_modules/stacktrace/bin/stack.js"
+    "jquery": "./js/jquery.js",
+    "angular": "./js/angular.js",
+    "angular-route": "./js/angular-route.js",
+    "angular-resource": "./js/angular-resource.js",
+    "angular-sanitize": "./js/angular-sanitize.js",
+    "angular-bootstrap": "./js/ui-bootstrap.js",
+    "angular-moment": "./js/angular-moment.js",
+    "lodash": "./js/lodash.js",
+    "moment": "./js/moment.js",
+    "stacktrace": "./js/stacktrace.js"
   },
   "browserify": {
     "transform": [
