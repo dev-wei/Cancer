@@ -103,7 +103,7 @@ module.exports = function (grunt) {
       },
       "build": {
         "expand": true,
-        "src": ['*.js', '*.json', 'app/**/*.*', 'config/**/*.*', 'node_modules/**/*.*', 'public/**/*.*'],
+        "src": ['*.js', '*.json', 'app/**/*.*', 'config/**/*.*', 'public/**/*.*'],
         "dest": configs.paths.target
       }
     },
