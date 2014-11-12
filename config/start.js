@@ -14,7 +14,6 @@ module.exports = function (logger, http) {
     http = require('http');
   }
 
-  //Bootstrap db connection
   var db = mongoose.connect(config.db);
   mongoose.connection.on('error', function () {
     logger.error('Could not connect to Mongodb!', config.db);
@@ -23,19 +22,13 @@ module.exports = function (logger, http) {
     logger.info('Successfully connected to Mongodb!', config.db);
   });
 
-  //Bootstrap models
   require('./models');
 
-  //bootstrap passport config
-  //require('./config/passport')(passport);
+  require('./passport')(passport);
 
   var app = require('express')();
   require('./express')(app, passport, db);
 
-  //Bootstrap routes
-  //require('./config/routes')(app, passport, auth);
-
-  //Start the app by listening on <port>
   var port = process.env.PORT || config.port;
   var server = http.createServer(app).listen(port,
     function () {
