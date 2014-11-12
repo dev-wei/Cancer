@@ -55,11 +55,12 @@ module.exports = function (grunt) {
       ]
     },
     "paths": {
-      "jsLibs" : 'js',
+      "jsLibs": 'js',
       "js": 'public/js/modules',
       "build": 'public/js/build',
       "css": 'public/css',
-      "cssBuild": 'public/css/build'
+      "cssBuild": 'public/css/build',
+      "target": 'target'
     }
   };
 
@@ -99,6 +100,11 @@ module.exports = function (grunt) {
         "flatten": true,
         "src": browserify.getBrowserSourceFiles(),
         "dest": configs.paths.jsLibs
+      },
+      "build": {
+        "expand": true,
+        "src": ['*.js', '*.json', 'app/**/*.*', 'config/**/*.*', 'node_modules/**/*.*', 'public/**/*.*'],
+        "dest": configs.paths.target
       }
     },
 
@@ -161,10 +167,13 @@ module.exports = function (grunt) {
       },
       "browserify": {
         "src": configs.paths.jsLibs
+      },
+      "build": {
+        "src": configs.paths.target
       }
     },
 
-    uglify: {
+    "uglify": {
       options: {
         banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %> */'
@@ -195,7 +204,7 @@ module.exports = function (grunt) {
       }
     },
 
-    mocha_istanbul: {
+    "mocha_istanbul": {
       coverage: {
         src: toMochaIstanbul(configs.sources.test),
         options: {
@@ -225,7 +234,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask(
     'build',
-    ['build:libs', 'run:browserify-app', 'uglify:app', 'uglify:libs']);
+    ['clean:build', 'build:libs', 'run:browserify-app', 'uglify:app', 'uglify:libs', 'copy:build']);
 
   grunt.registerTask(
     'test',
