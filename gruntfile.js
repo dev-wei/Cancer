@@ -88,7 +88,7 @@ module.exports = function (grunt) {
     "mkdir": {
       "all": {
         "options": {
-          "create": [configs.paths.build]
+          "create": [configs.paths.build, configs.paths.jsLibs]
         }
       }
     },
