@@ -27,7 +27,7 @@ describe('Express', function () {
   });
 
   it('Should have config resolved correctly.', function () {
-    var express = require('../config/express')(app, passport);
+    var express = require('../../config/express')(app, passport);
     expect(express).to.be.ok();
   });
 });

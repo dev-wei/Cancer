@@ -5,7 +5,7 @@ describe('Configuration', function () {
   var config;
 
   beforeEach(function () {
-    config = require('../config/config');
+    config = require('../../config/config');
   });
 
   it('Should have config resolved correctly.', function () {

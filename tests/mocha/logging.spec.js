@@ -5,7 +5,7 @@ describe('Logging', function () {
   var logging;
 
   beforeEach(function () {
-    logging = require('../config/logging');
+    logging = require('../../config/logging');
   });
 
   it('Should have logging resolved correctly.', function () {

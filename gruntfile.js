@@ -45,7 +45,7 @@ module.exports = function (grunt) {
       "css": ['public/css/*.css'],
       "test": [
         {
-          "folder": 'tests',
+          "folder": 'tests/mocha',
           "mask": '*.spec.*'
         },
         {
@@ -121,17 +121,41 @@ module.exports = function (grunt) {
     },
 
     "karma": {
-      "options": {
-        "configFile": 'karma.conf.js',
-        "singleRun": true
+      options: {
+        configFile: 'config/karma.conf.js',
+        singleRun: true
       },
-      "unit": {
-        "singleRun": true
+      unit: {
+        options: {
+          singleRun: true,
+          files: [
+            'public/js/lib/browser-source-map-support.js',
+            'public/js/build/libs.js',
+            'public/js/build/app.js',
+
+            'bower_components/angular-mocks/angular-mocks.js',
+            'tests/karma/**/*.spec.js'
+          ]
+        }
       },
-      "watch": {
-        "autoWatch": false,
-        "singleRun": false,
-        "background": true
+      coverage: {
+        options: {
+          singleRun: true,
+          reporters: ['progress', 'teamcity', 'coverage'],
+          files: [
+            'public/js/lib/browser-source-map-support.js',
+            'public/js/build/libs.js',
+            'public/js/build/app.coverage.js',
+
+            'bower_components/angular-mocks/angular-mocks.js',
+            'tests/karma/**/*.spec.js'
+          ]
+        }
+      },
+      watch: {
+        autoWatch: false,
+        singleRun: false,
+        background: true
       }
     },
 
@@ -238,9 +262,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask(
     'test',
-    ['mochaTest:test']);
+    ['mochaTest:test', 'karma:unit']);
 
   grunt.registerTask(
     'test:coverage',
-    ['mocha_istanbul']);
+    ['mocha_istanbul', 'karma:coverage']);
 };
