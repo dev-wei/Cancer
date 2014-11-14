@@ -259,7 +259,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask(
     'build',
-    ['clean:build', 'build:libs', 'build:app', 'uglify:app', 'uglify:libs', 'copy:build']);
+    ['clean:build', 'build:app', 'uglify:app', 'uglify:libs', 'copy:build']);
 
   grunt.registerTask(
     'test',
