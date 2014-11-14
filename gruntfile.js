@@ -255,7 +255,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask(
     'build:coverage',
-    ['build:libs', 'build:app-coverage']);
+    ['build:app-coverage']);
 
   grunt.registerTask(
     'build',
