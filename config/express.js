@@ -9,7 +9,6 @@ var path = require('path'),
 //methodOverride = require('method-override'),
   bodyParser = require('body-parser'),
 //json = require('json-middleware'),
-  MongoStore = require('connect-mongo')(session),
   helpers = require('view-helpers'),
   config = require('./config'),
   router = require('./routes');
@@ -66,7 +65,7 @@ module.exports = function (app, passport, db) {
   };
   if (config.env === 'prod') {
     sessionConfig.cookie.secure = true;
-    sessionConfig.store = new MongoStore({
+    sessionConfig.store = new require('connect-mongo')(session)({
       db: db,
       collection: 'sessions'
     });

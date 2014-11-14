@@ -26,7 +26,7 @@ describe('Express', function () {
   beforeEach(function () {
   });
 
-  it('Should have config resolved correctly.', function () {
+  it('Should have express resolved correctly.', function () {
     var express = require('../../config/express')(app, passport);
     expect(express).to.be.ok();
   });
