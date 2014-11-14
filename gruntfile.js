@@ -22,7 +22,7 @@ module.exports = function (grunt) {
   var pkg = grunt.file.readJSON('package.json');
 
   var browserify = new GruntBrowserify(
-    pkg['browser-sources'],
+    pkg['sources'],
     pkg.browser,
     pkg['browserify-shim']);
 
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
       ]
     },
     "paths": {
-      "jsLibs": 'js',
+      "jsLibs": 'build',
       "js": 'public/js/modules',
       "build": 'public/js/build',
       "css": 'public/css',
@@ -64,12 +64,11 @@ module.exports = function (grunt) {
     }
   };
 
-  grunt.log.debug(JSON.stringify(toMochaTest(configs.sources.test)));
-  // configure the tasks
+  //grunt.log.debug(JSON.stringify(toMochaTest(configs.sources.test)));
+
   grunt.initConfig({
     "pkg": pkg,
     "configs": configs,
-
     "run": {
       "options": {
         "failOnError": true,
@@ -85,7 +84,6 @@ module.exports = function (grunt) {
         "exec": browserify.getCmd(true, './<%= configs.paths.build %>/app.coverage.js', ['./<%= configs.paths.js %>/app/app.js'], ['-t browserify-istanbul'])
       }
     },
-
     "mkdir": {
       "all": {
         "options": {
@@ -93,7 +91,6 @@ module.exports = function (grunt) {
         }
       }
     },
-
     "copy": {
       "browserify": {
         "expand": true,
@@ -107,7 +104,6 @@ module.exports = function (grunt) {
         "dest": configs.paths.target
       }
     },
-
     "jshint": {
       "options": {
         "jshintrc": true
@@ -119,7 +115,6 @@ module.exports = function (grunt) {
         ]
       }
     },
-
     "karma": {
       options: {
         configFile: 'config/karma.conf.js',
@@ -135,7 +130,8 @@ module.exports = function (grunt) {
 
             'bower_components/angular-mocks/angular-mocks.js',
             'tests/karma/**/*.spec.js'
-          ]
+          ],
+          browsers: ['PhantomJS']
         }
       },
       coverage: {
@@ -149,7 +145,8 @@ module.exports = function (grunt) {
 
             'bower_components/angular-mocks/angular-mocks.js',
             'tests/karma/**/*.spec.js'
-          ]
+          ],
+          browsers: ['PhantomJS']
         }
       },
       watch: {
@@ -246,19 +243,23 @@ module.exports = function (grunt) {
 
   grunt.registerTask(
     'build:app',
-    ['mkdir:all', 'run:browserify-app']);
+    ['mkdir:all', 'copy:browserify', 'run:browserify-app', 'clean:browserify']);
 
   grunt.registerTask(
     'build:libs',
     ['mkdir:all', 'copy:browserify', 'run:browserify-libs', 'clean:browserify']);
 
   grunt.registerTask(
+    'build:app-coverage',
+    ['mkdir:all', 'copy:browserify', 'run:browserify-app-coverage', 'clean:browserify']);
+
+  grunt.registerTask(
     'build:coverage',
-    ['build:libs', 'run:browserify-app-coverage']);
+    ['build:libs', 'build:app-coverage']);
 
   grunt.registerTask(
     'build',
-    ['clean:build', 'build:libs', 'run:browserify-app', 'uglify:app', 'uglify:libs', 'copy:build']);
+    ['clean:build', 'build:libs', 'build:app', 'uglify:app', 'uglify:libs', 'copy:build']);
 
   grunt.registerTask(
     'test',

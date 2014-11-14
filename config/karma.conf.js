@@ -5,6 +5,7 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
     plugins: [
       'karma-chrome-launcher',
+      'karma-phantomjs-launcher',
       'karma-coverage',
       'karma-jasmine',
       'karma-sourcemap-loader',

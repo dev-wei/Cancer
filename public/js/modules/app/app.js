@@ -4,8 +4,8 @@ var $ = require('jquery');
 var angular = require('angular');
 var ngModule = angular.module('Cancer',
   [
-    //'ngCookies',
-    //'ngResource',
+    'ui.router',
+    'ngResource'
     //'ngSanitize',
     //'ngRoute'
   ]);

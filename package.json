@@ -3,13 +3,12 @@
   "description": "Michael Wei's javascript craziness.",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "install": "npm run bower && npm run build-libs",
+    "bower": "bower install --allow-root",
+    "build-libs": "grunt build:libs"
+  },
   "dependencies": {
-    "angular": "^1.3.1",
-    "angular-bootstrap": "^0.11.0",
-    "angular-moment": "^0.8.2",
-    "angular-resource": "^1.3.1",
-    "angular-route": "^1.3.1",
-    "angular-sanitize": "^1.3.1",
     "body-parser": "^1.9.2",
     "cluster": "^0.7.7",
     "compression": "^1.2.0",
@@ -21,7 +20,6 @@
     "express": "^4.10.1",
     "express-session": "^1.9.1",
     "jade": "^1.7.0",
-    "jquery": "^2.1.1",
     "json-middleware": "^1.0.2",
     "less": "^1.7.5",
     "lodash": "^2.4.1",
@@ -48,7 +46,7 @@
   },
   "devDependencies": {
     "brfs": "^1.2.0",
-    "browserify": "^6.2.0",
+    "browserify": "^4.2.3",
     "browserify-istanbul": "^0.1.2",
     "browserify-shim": "^3.8.0",
     "chai": "^1.10.0",
@@ -73,11 +71,13 @@
     "karma-coverage": "^0.2.6",
     "karma-jasmine": "~0.2",
     "karma-mocha": "^0.1.9",
+    "karma-phantomjs-launcher": "^0.1.4",
     "karma-sourcemap-loader": "^0.3.0",
     "karma-teamcity-reporter": "^0.1.2",
     "mocha": "^2.0.1",
     "mocha-teamcity-cov-reporter": "0.0.1",
     "mocha-teamcity-reporter": "0.0.4",
+    "napa": "^1.0.2",
     "nodeunit": "^0.9.0",
     "open": "0.0.5",
     "shelljs": "^0.3.0",
@@ -86,35 +86,17 @@
     "sinon-chai": "^2.6.0",
     "sourcemap": "^0.1.0"
   },
-  "browser-sources": {
+  "sources": {
     "jquery": "./bower_components/jquery/dist/jquery.js",
     "angular": "./bower_components/angular/angular.js",
-    "angular-route": "./bower_components/angular-route/angular-route.js",
-    "angular-resource": "./bower_components/angular-resource/angular-resource.js",
-    "angular-sanitize": "./bower_components/angular-sanitize/angular-sanitize.js",
-    "angular-bootstrap": "./bower_components/angular-bootstrap/ui-bootstrap.js",
-    "angular-moment": "./bower_components/angular-moment/angular-moment.js",
-    "lodash": "./bower_components/lodash/dist/lodash.js",
-    "moment": "./bower_components/moment/moment.js",
-    "stacktrace": "./bower_components/stacktrace/stacktrace.js"
+    "angular-ui-router": "./bower_components/angular-ui-router/release/angular-ui-router.js",
+    "angular-resource": "./bower_components/angular-resource/angular-resource.js"
   },
   "browser": {
-    "jquery": "./js/jquery.js",
-    "angular": "./js/angular.js",
-    "angular-route": "./js/angular-route.js",
-    "angular-resource": "./js/angular-resource.js",
-    "angular-sanitize": "./js/angular-sanitize.js",
-    "angular-bootstrap": "./js/ui-bootstrap.js",
-    "angular-moment": "./js/angular-moment.js",
-    "lodash": "./js/lodash.js",
-    "moment": "./js/moment.js",
-    "stacktrace": "./js/stacktrace.js"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim",
-      "brfs"
-    ]
+    "jquery": "./build/jquery.js",
+    "angular": "./build/angular.js",
+    "angular-ui-router": "./build/angular-ui-router.js",
+    "angular-resource": "./build/angular-resource.js"
   },
   "browserify-shim": {
     "jquery": "$",
@@ -124,40 +106,21 @@
         "jquery:$"
       ]
     },
-    "angular-route": {
+    "angular-ui-router": {
       "exports": null,
-      "depends": [
-        "angular:angular"
-      ]
+      "depends": "angular:angular"
     },
     "angular-resource": {
       "exports": null,
       "depends": [
         "angular:angular"
       ]
-    },
-    "angular-sanitize": {
-      "exports": null,
-      "depends": [
-        "angular:angular"
-      ]
-    },
-    "angular-bootstrap": {
-      "exports": null,
-      "depends": [
-        "angular:angular"
-      ]
-    },
-    "angular-moment": {
-      "exports": null,
-      "depends": [
-        "angular:angular",
-        "moment:moment"
-      ]
-    },
-    "moment": "moment",
-    "stacktrace": {
-      "exports": "printStackTrace"
     }
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim",
+      "brfs"
+    ]
   }
 }
