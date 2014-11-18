@@ -29,13 +29,13 @@ module.exports = function (grunt) {
   var toMochaTest = function (files) {
     return _.map(files, function (file) {
       return file.folder + "/**/" + file.mask;
-    })
+    });
   };
 
   var toMochaIstanbul = function (files) {
     return _.map(files, function (file) {
       return file.folder;
-    })
+    });
   };
 
   var configs = {
@@ -266,6 +266,10 @@ module.exports = function (grunt) {
     ['mochaTest:test', 'karma:unit']);
 
   grunt.registerTask(
-    'test:coverage',
-    ['mocha_istanbul', 'karma:coverage']);
+    'node:coverage',
+    ['mochaTest:test', 'mocha_istanbul']);
+
+  grunt.registerTask(
+    'ui:coverage',
+    ['karma:coverage']);
 };
