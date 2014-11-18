@@ -60,7 +60,8 @@ module.exports = function (grunt) {
       "build": 'public/js/build',
       "css": 'public/css',
       "cssBuild": 'public/css/build',
-      "target": 'target'
+      "target": 'target',
+      "coverage": 'coverage'
     }
   };
 
@@ -191,6 +192,9 @@ module.exports = function (grunt) {
       },
       "build": {
         "src": configs.paths.target
+      },
+      "coverage":{
+        "src": configs.paths.coverage
       }
     },
 
@@ -267,9 +271,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask(
     'node:coverage',
-    ['mochaTest:test', 'mocha_istanbul']);
+    ['clean:coverage', 'mochaTest:test', 'mocha_istanbul']);
 
   grunt.registerTask(
     'ui:coverage',
-    ['karma:coverage']);
+    ['clean:coverage', 'karma:coverage']);
 };
