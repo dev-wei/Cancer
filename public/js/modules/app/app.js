@@ -2,12 +2,11 @@
 
 var $ = require('jquery');
 var angular = require('angular');
-var ngModule = angular.module('Cancer',
+var ngModule = angular.module('cancer.app',
   [
     'ui.router',
-    'ngResource'
-    //'ngSanitize',
-    //'ngRoute'
+    'ngResource',
+    'ngSanitize'
   ]);
   //.config(function ($httpProvider, $locationProvider) {
   //  $httpProvider.defaults.useXDomain = true;
