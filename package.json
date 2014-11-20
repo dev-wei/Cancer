@@ -91,14 +91,16 @@
     "angular": "./bower_components/angular/angular.js",
     "angular-ui-router": "./bower_components/angular-ui-router/release/angular-ui-router.js",
     "angular-resource": "./bower_components/angular-resource/angular-resource.js",
-    "angular-sanitize": "./bower_components/angular-sanitize/angular-sanitize.js"
+    "angular-sanitize": "./bower_components/angular-sanitize/angular-sanitize.js",
+    "angular-bootstrap": "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"
   },
   "browser": {
     "jquery": "./build/jquery.js",
     "angular": "./build/angular.js",
     "angular-ui-router": "./build/angular-ui-router.js",
     "angular-resource": "./build/angular-resource.js",
-    "angular-sanitize": "./build/angular-sanitize.js"
+    "angular-sanitize": "./build/angular-sanitize.js",
+    "angular-bootstrap": "./build/ui-bootstrap-tpls.js"
   },
   "browserify-shim": {
     "jquery": "$",
@@ -119,6 +121,12 @@
       ]
     },
     "angular-sanitize": {
+      "exports": null,
+      "depends": [
+        "angular:angular"
+      ]
+    },
+    "angular-bootstrap": {
       "exports": null,
       "depends": [
         "angular:angular"
