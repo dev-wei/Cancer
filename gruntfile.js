@@ -23,7 +23,7 @@ module.exports = function (grunt) {
   var pkg = grunt.file.readJSON('package.json');
 
   var browserify = new GruntBrowserify(
-    pkg['sources'],
+    pkg.sources,
     pkg.browser,
     pkg['browserify-shim']);
 
@@ -60,7 +60,7 @@ module.exports = function (grunt) {
       "js": 'public/js/modules',
       "build": 'public/js/build',
       "css": 'public/css',
-      "cssBuild": 'public/css',
+      "cssBuild": 'public/css/build',
       "target": 'target',
       "coverage": 'coverage'
     }
@@ -104,6 +104,12 @@ module.exports = function (grunt) {
         "expand": true,
         "src": ['*.js', 'package.json', 'app/**/*.*', 'config/**/*.*', 'public/**/*.*'],
         "dest": configs.paths.target
+      },
+      "font-awesome":{
+        "expand": true,
+        "cwd": 'bower_components/fontawesome',
+        "src": ['fonts/**'],
+        "dest": configs.paths.cssBuild
       }
     },
     "jshint": {
@@ -193,6 +199,9 @@ module.exports = function (grunt) {
       },
       "coverage": {
         "src": configs.paths.coverage
+      },
+      "css": {
+        "src": configs.paths.cssBuild
       }
     },
     "uglify": {
@@ -258,7 +267,7 @@ module.exports = function (grunt) {
         grunt.log.error('Theme files are missing.');
       }
 
-      grunt.task.run(['less:dist']);
+      grunt.task.run(['clean:css', 'less:dist', 'copy:font-awesome']);
     });
 
   // Tasks
