@@ -10,6 +10,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-mkdir');
   grunt.loadNpmTasks('grunt-mocha-test');
@@ -59,7 +60,7 @@ module.exports = function (grunt) {
       "js": 'public/js/modules',
       "build": 'public/js/build',
       "css": 'public/css',
-      "cssBuild": 'public/css/build',
+      "cssBuild": 'public/css',
       "target": 'target',
       "coverage": 'coverage'
     }
@@ -156,7 +157,6 @@ module.exports = function (grunt) {
         background: true
       }
     },
-
     "watch": {
       "build": {
         "files": [configs.sources.js],
@@ -167,7 +167,6 @@ module.exports = function (grunt) {
         "tasks": ['karma:watch:run']
       }
     },
-
     "forever": {
       "server": {
         "options": {
@@ -176,7 +175,6 @@ module.exports = function (grunt) {
         }
       }
     },
-
     "clean": {
       "all": {
         "src": configs.paths.build
@@ -193,11 +191,10 @@ module.exports = function (grunt) {
       "build": {
         "src": configs.paths.target
       },
-      "coverage":{
+      "coverage": {
         "src": configs.paths.coverage
       }
     },
-
     "uglify": {
       options: {
         banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
@@ -218,7 +215,6 @@ module.exports = function (grunt) {
         }
       }
     },
-
     "mochaTest": {
       "test": {
         "options": {
@@ -228,7 +224,6 @@ module.exports = function (grunt) {
         "src": toMochaTest(configs.sources.test)
       }
     },
-
     "mocha_istanbul": {
       coverage: {
         src: toMochaIstanbul(configs.sources.test),
@@ -237,8 +232,34 @@ module.exports = function (grunt) {
           reportFormats: ['teamcity', 'html', 'text']
         }
       }
+    },
+    "less": {
+      dist: {
+        options: {
+          compress: true,
+          cleancss: true,
+          banner: '/* Generated at <%= grunt.template.today("yyyy-mm-dd hh:mm:ss") %> */\n'
+        },
+        files: {
+          '<%= configs.paths.cssBuild %>/app.css': '<%= configs.paths.css %>/build.less'
+        }
+      }
     }
   });
+
+  grunt.registerTask('build:css', 'build theme',
+    function () {
+      var isValidTheme =
+        grunt.file.exists(configs.paths.css, 'variables.less') &&
+        grunt.file.exists(configs.paths.css, 'build.less') &&
+        grunt.file.exists(configs.paths.css, 'app.less');
+
+      if (!isValidTheme) {
+        grunt.log.error('Theme files are missing.');
+      }
+
+      grunt.task.run(['less:dist']);
+    });
 
   // Tasks
   grunt.registerTask(
@@ -263,7 +284,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask(
     'build',
-    ['clean:build', 'build:app', 'uglify:app', 'uglify:libs', 'copy:build']);
+    ['clean:build', 'build:app', 'uglify:app', 'uglify:libs', 'build:css', 'copy:build']);
 
   grunt.registerTask(
     'test',
