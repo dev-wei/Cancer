@@ -18,6 +18,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-forever');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-mocha-istanbul');
+  grunt.loadNpmTasks('grunt-html2js');
 
   // package json
   var pkg = grunt.file.readJSON('package.json');
@@ -105,7 +106,7 @@ module.exports = function (grunt) {
         "src": ['*.js', 'package.json', 'app/**/*.*', 'config/**/*.*', 'public/**/*.*'],
         "dest": configs.paths.target
       },
-      "font-awesome":{
+      "font-awesome": {
         "expand": true,
         "cwd": 'bower_components/fontawesome',
         "src": ['fonts/**'],
@@ -253,6 +254,20 @@ module.exports = function (grunt) {
           '<%= configs.paths.cssBuild %>/app.css': '<%= configs.paths.css %>/build.less'
         }
       }
+    },
+    "html2js": {
+      options: {
+        module: 'cancer.template',
+        useStrict: true,
+        rename: function (moduleName) {
+          return path.basename(moduleName).replace('.jade', '');
+        },
+        singleModule: true
+      },
+      main: {
+        src: ['public/js/**/*.jade'],
+        dest: 'public/js/lib/tpl.js'
+      }
     }
   });
 
@@ -281,7 +296,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask(
     'build:libs',
-    ['mkdir:all', 'copy:browserify', 'run:browserify-libs', 'clean:browserify']);
+    ['mkdir:all', 'html2js:main', 'copy:browserify', 'run:browserify-libs', 'clean:browserify']);
 
   grunt.registerTask(
     'build:app-coverage',
