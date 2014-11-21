@@ -14,6 +14,7 @@ module.exports = function (config) {
     files: [
       'public/js/lib/browser-source-map-support.js',
       'public/js/build/libs.js',
+      'public/js/build/tpl.js',
       'public/js/build/app.js',
 
       'bower_components/angular-mocks/angular-mocks.js',

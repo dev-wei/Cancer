@@ -80,6 +80,9 @@ module.exports = function (grunt) {
       "browserify-libs": {
         "exec": browserify.getCmd(false, './<%= configs.paths.build %>/libs.js')
       },
+      "browserify-tpl": {
+        "exec": browserify.getCmd(true, './<%= configs.paths.build %>/tpl.js', ['./<%= configs.paths.build %>/tpl.raw.js'])
+      },
       "browserify-app": {
         "exec": browserify.getCmd(true, './<%= configs.paths.build %>/app.js', ['./<%= configs.paths.js %>/app/app.js'])
       },
@@ -90,7 +93,7 @@ module.exports = function (grunt) {
     "mkdir": {
       "all": {
         "options": {
-          "create": [configs.paths.build, configs.paths.jsLibs]
+          "create": [configs.paths.build]
         }
       }
     },
@@ -135,6 +138,7 @@ module.exports = function (grunt) {
           files: [
             'public/js/lib/browser-source-map-support.js',
             'public/js/build/libs.js',
+            'public/js/build/tpl.js',
             'public/js/build/app.js',
 
             'bower_components/angular-mocks/angular-mocks.js',
@@ -150,6 +154,7 @@ module.exports = function (grunt) {
           files: [
             'public/js/lib/browser-source-map-support.js',
             'public/js/build/libs.js',
+            'public/js/build/tpl.js',
             'public/js/build/app.coverage.js',
 
             'bower_components/angular-mocks/angular-mocks.js',
@@ -266,7 +271,7 @@ module.exports = function (grunt) {
       },
       main: {
         src: ['public/js/**/*.jade'],
-        dest: 'public/js/build/tpl.js'
+        dest: 'public/js/build/tpl.raw.js'
       }
     }
   });
@@ -295,8 +300,12 @@ module.exports = function (grunt) {
     ['mkdir:all', 'copy:browserify', 'run:browserify-app', 'clean:browserify']);
 
   grunt.registerTask(
+    'build:tpl',
+    ['mkdir:all', 'html2js:main', 'run:browserify-tpl']);
+
+  grunt.registerTask(
     'build:libs',
-    ['mkdir:all', 'html2js:main', 'copy:browserify', 'run:browserify-libs', 'clean:browserify']);
+    ['mkdir:all', 'copy:browserify', 'run:browserify-libs', 'clean:browserify']);
 
   grunt.registerTask(
     'build:app-coverage',
@@ -307,8 +316,12 @@ module.exports = function (grunt) {
     ['build:app-coverage']);
 
   grunt.registerTask(
+    'dev',
+    ['clean:build', 'build:tpl', 'build:app', 'build:css', 'copy:build']);
+
+  grunt.registerTask(
     'build',
-    ['clean:build', 'build:app', 'uglify:app', 'uglify:libs', 'build:css', 'copy:build']);
+    ['clean:build', 'build:tpl', 'build:app', 'uglify:app', 'uglify:libs', 'build:css', 'copy:build']);
 
   grunt.registerTask(
     'test',
@@ -321,4 +334,8 @@ module.exports = function (grunt) {
   grunt.registerTask(
     'ui:coverage',
     ['clean:coverage', 'karma:coverage']);
+
+  grunt.registerTask(
+    'buddy',
+    ['build:libs', 'build', 'test', 'node:coverage', 'ui:coverage', 'clean:build']);
 };

@@ -101,8 +101,7 @@
     "angular-ui-router": "./build/angular-ui-router.js",
     "angular-resource": "./build/angular-resource.js",
     "angular-sanitize": "./build/angular-sanitize.js",
-    "angular-bootstrap": "./build/ui-bootstrap-tpls.js",
-    "tpl": "./public/js/lib/tpl.js"
+    "angular-bootstrap": "./build/ui-bootstrap-tpls.js"
   },
   "browserify-shim": {
     "jquery": "$",
