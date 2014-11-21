@@ -1,8 +1,8 @@
 'use strict';
 var _ = require('lodash');
 
-module.exports.index = function (req, res) {
-  res.render('index', {
+module.exports.getHome = function (req, res) {
+  res.render('app/home', {
     user: req.user ? JSON.stringify(req.user) : "null"
   });
 };

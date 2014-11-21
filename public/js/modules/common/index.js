@@ -9,6 +9,7 @@ var ngModule = angular.module('cancer.common', [
   'cancer.template'
 ]).value('version', '0.1');
 
+require('./controllers/header')(ngModule);
 require('./directives/retinaMenu')(ngModule);
 
 module.exports = ngModule;

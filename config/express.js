@@ -11,7 +11,8 @@ var path = require('path'),
 //json = require('json-middleware'),
   helpers = require('view-helpers'),
   config = require('./config'),
-  router = require('./routes');
+  router = require('./routes'),
+  apiRouter = require('./apiRoutes');
 
 module.exports = function (app, passport, db) {
   if (!app) {
@@ -77,6 +78,7 @@ module.exports = function (app, passport, db) {
   app.use(helpers(config.app.name));
 
   app.use('/', router);
+  app.use('/api', apiRouter);
   app.enable('trust proxy');
 
   app.use(function (req, res, next) {

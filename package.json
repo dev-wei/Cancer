@@ -96,6 +96,7 @@
     "angular-bootstrap": "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"
   },
   "browser": {
+    "lodash": "lodash",
     "jquery": "./build/jquery.js",
     "angular": "./build/angular.js",
     "angular-ui-router": "./build/angular-ui-router.js",
