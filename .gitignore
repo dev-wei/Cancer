@@ -25,7 +25,6 @@ build/Release
 node_modules
 
 bower_components
-js
 
 # Users Environment Variables
 .lock-wscript
@@ -41,5 +40,6 @@ js
 # Browserify
 public/js/build/
 
-# Bower components
-public/js/lib/bower_components/
+# CSS
+public/css/build
+

@@ -266,7 +266,7 @@ module.exports = function (grunt) {
       },
       main: {
         src: ['public/js/**/*.jade'],
-        dest: 'public/js/lib/tpl.js'
+        dest: 'public/js/build/tpl.js'
       }
     }
   });
