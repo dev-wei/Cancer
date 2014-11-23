@@ -5,7 +5,7 @@ module.exports = function (ngModule) {
   ngModule.directive('retinaMenu',
     function ($templateCache) {
       return {
-        restrict: 'E',
+        restrict: 'C',
         scope: {
           items: '='
         },
@@ -13,14 +13,14 @@ module.exports = function (ngModule) {
           var defaultItem = {
             url: '#',
             target: '_self',
-            iconClass: 'icon-unknown',
-            title: 'Unknown'
+            iconClass: 'icon-tbd',
+            title: 'TBD'
           };
 
-          if ($scope.items) {
+          if ($scope.items && _.isArray($scope.items)) {
             $scope.items = _.map($scope.items,
               function (item) {
-                return _.merge(defaultItem, item);
+                return _.defaults(item, defaultItem);
               });
           }
         },

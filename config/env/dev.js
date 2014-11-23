@@ -6,20 +6,38 @@ module.exports = {
       {
         "url": "#",
         "target": "_self",
-        "iconClass": "icon-tbd",
-        "title": "TBD"
+        "iconClass": "icon-home",
+        "title": "Home"
       },
       {
         "url": "#",
         "target": "_self",
-        "iconClass": "icon-tbd",
-        "title": "TBD"
+        "iconClass": "icon-services",
+        "title": "Services"
       },
       {
         "url": "#",
         "target": "_self",
-        "iconClass": "icon-tbd",
-        "title": "TBD"
+        "iconClass": "icon-portfolio",
+        "title": "Portfolio"
+      },
+      {
+        "url": "#",
+        "target": "_self",
+        "iconClass": "icon-blog",
+        "title": "Blog"
+      },
+      {
+        "url": "#",
+        "target": "_self",
+        "iconClass": "icon-team",
+        "title": "The Team"
+      },
+      {
+        "url": "#",
+        "target": "_self",
+        "iconClass": "icon-contact",
+        "title": "Contact"
       }
     ]
   }

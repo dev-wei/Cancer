@@ -41,5 +41,7 @@ bower_components
 public/js/build/
 
 # CSS
-public/css/build
+public/css/app.css
+public/css/fonts/Font*.*
+
 

@@ -61,7 +61,7 @@ module.exports = function (grunt) {
       "js": 'public/js/modules',
       "build": 'public/js/build',
       "css": 'public/css',
-      "cssBuild": 'public/css/build',
+      "cssBuild": 'public/css',
       "target": 'target',
       "coverage": 'coverage'
     }
@@ -207,7 +207,7 @@ module.exports = function (grunt) {
         "src": configs.paths.coverage
       },
       "css": {
-        "src": configs.paths.cssBuild
+        "src": [path.join(configs.paths.build, 'app.css'), 'fonts']
       }
     },
     "uglify": {
@@ -287,7 +287,7 @@ module.exports = function (grunt) {
         grunt.log.error('Theme files are missing.');
       }
 
-      grunt.task.run(['clean:css', 'less:dist', 'copy:font-awesome']);
+      grunt.task.run(['clean:css', 'copy:font-awesome', 'less:dist']);
     });
 
   // Tasks
