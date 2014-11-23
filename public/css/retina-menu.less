@@ -1,3 +1,6 @@
+@import "mixins/shared";
+@import "variables";
+
 .retina-menu {
 
   @font-face {
@@ -27,41 +30,409 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  @color-team: "\e000";
-  @color-blog: "\e001";
-  @color-home: "\e002";
-  @color-portfolio: "\e003";
-  @color-services: "\e004";
-  @color-contact: "\e005";
-  @color-menu: "\e006";
+  @icon-team: "\e000";
+  @icon-blog: "\e001";
+  @icon-home: "\e002";
+  @icon-portfolio: "\e003";
+  @icon-services: "\e004";
+  @icon-contact: "\e005";
+  @icon-menu: "\e006";
 
   .icon-team:before {
-    content: @color-team;
+    content: @icon-team;
   }
 
   .icon-blog:before {
-    content: @color-blog;
+    content: @icon-blog;
   }
 
   .icon-home:before {
-    content: @color-home;
+    content: @icon-home;
   }
 
   .icon-portfolio:before {
-    content: @color-portfolio;
+    content: @icon-portfolio;
   }
 
   .icon-services:before {
-    content: @color-services;
+    content: @icon-services;
   }
 
   .icon-contact:before {
-    content: @color-contact;
+    content: @icon-contact;
   }
 
   .icon-menu:before {
-    content: @color-menu;
+    content: @icon-menu;
   }
 
+  .nav ul {
+    max-width: 1240px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 1.5em;
+    font-weight: 300;
+  }
 
+  .nav li span {
+    display: block;
+  }
+
+  .nav a {
+    display: block;
+    color: rgba(249, 249, 249, .9);
+    text-decoration: none;
+    .transition(color .5s);
+    .transition(background .5s);
+    .transition(height .5s);
+  }
+
+  .nav i {
+    .translate3d(0, 0, 0);
+  }
+
+  a, li {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  a, button {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  .no-touch .nav ul:hover a {
+    color: rgba(249, 249, 249, .5);
+  }
+
+  .no-touch .nav ul:hover a:hover {
+    color: rgba(249, 249, 249, 0.99);
+  }
+
+  .nav li:nth-child(6n+1) {
+    background: rgb(208, 101, 3);
+  }
+
+  .nav li:nth-child(6n+2) {
+    background: rgb(233, 147, 26);
+  }
+
+  .nav li:nth-child(6n+3) {
+    background: rgb(22, 145, 190);
+  }
+
+  .nav li:nth-child(6n+4) {
+    background: rgb(22, 107, 162);
+  }
+
+  .nav li:nth-child(6n+5) {
+    background: rgb(27, 54, 71);
+  }
+
+  .nav li:nth-child(6n+6) {
+    background: rgb(21, 40, 54);
+  }
+
+  @media (min-width: @screen-lg-min) {
+    .nav li {
+      float: left;
+      width: 16.66666666666667%;
+      text-align: center;
+      .transition(border .5s);
+    }
+
+    .nav a {
+      display: block;
+      width: auto;
+    }
+
+    .no-touch .nav li:nth-child(6n+1) a:hover,
+    .no-touch .nav li:nth-child(6n+1) a:active,
+    .no-touch .nav li:nth-child(6n+1) a:focus {
+      border-bottom: 4px solid rgb(174, 78, 1);
+    }
+
+    .no-touch .nav li:nth-child(6n+2) a:hover,
+    .no-touch .nav li:nth-child(6n+2) a:active,
+    .no-touch .nav li:nth-child(6n+2) a:focus {
+      border-bottom: 4px solid rgb(191, 117, 20);
+    }
+
+    .no-touch .nav li:nth-child(6n+3) a:hover,
+    .no-touch .nav li:nth-child(6n+3) a:active,
+    .no-touch .nav li:nth-child(6n+3) a:focus {
+      border-bottom: 4px solid rgb(12, 110, 149);
+    }
+
+    .no-touch .nav li:nth-child(6n+4) a:hover,
+    .no-touch .nav li:nth-child(6n+4) a:active,
+    .no-touch .nav li:nth-child(6n+4) a:focus {
+      border-bottom: 4px solid rgb(10, 75, 117);
+    }
+
+    .no-touch .nav li:nth-child(6n+5) a:hover,
+    .no-touch .nav li:nth-child(6n+5) a:active,
+    .no-touch .nav li:nth-child(6n+5) a:focus {
+      border-bottom: 4px solid rgb(16, 34, 44);
+    }
+
+    .no-touch .nav li:nth-child(6n+6) a:hover,
+    .no-touch .nav li:nth-child(6n+6) a:active,
+    .no-touch .nav li:nth-child(6n+6) a:focus {
+      border-bottom: 4px solid rgb(9, 18, 25);
+    }
+
+    .icon {
+      padding-top: 1.4em;
+    }
+
+    .icon + span {
+      margin-top: 2.1em;
+      .transition(margin .5s);
+    }
+
+    /* Animating the height of the element*/
+    .nav a {
+      height: 9em;
+    }
+
+    .no-touch .nav a:hover,
+    .nav a:active,
+    .nav a:focus {
+      height: 10em;
+    }
+
+    /* Making the text follow the height animation */
+    .no-touch .nav a:hover .icon + span {
+      margin-top: 3.2em;
+      .transition(margin .5s);
+    }
+
+    /* Positioning the icons and preparing for the animation*/
+    .nav i {
+      position: relative;
+      display: inline-block;
+      margin: 0 auto;
+      padding: 0.4em;
+      border-radius: 50%;
+      font-size: 1.8em;
+      box-shadow: 0 0 0 30px transparent;
+      background: rgba(255, 255, 255, 0.1);
+      .translate3d(0, 0, 0);
+      .transition(box-shadow .6s ease-in-out);
+    }
+
+    /* Animate the box-shadow to create the effect */
+    .no-touch .nav a:hover i,
+    .no-touch .nav a:active i,
+    .no-touch .nav a:focus i {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
+      .transition(box-shadow .4s ease-in-out);
+    }
+  }
+
+  @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+    .nav ul {
+      font-size: 1.2em;
+    }
+  }
+
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+
+    .nav li {
+      display: block;
+      float: left;
+      width: 50%;
+    }
+
+    .nav a {
+      padding: 0.8em;
+    }
+
+    .nav li span,
+    .nav li span.icon {
+      display: inline-block;
+    }
+
+    .nav li span.icon {
+      width: 50%;
+    }
+
+    .nav li .icon + span {
+      font-size: 1em;
+    }
+
+    .icon + span {
+      position: relative;
+      top: -0.2em;
+    }
+
+    .nav li i {
+      display: inline-block;
+      padding: 8% 9%;
+      border: 4px solid transparent;
+      border-radius: 50%;
+      font-size: 1.5em;
+      background: rgba(255, 255, 255, 0.1);
+      .transition(border .5s);
+    }
+
+    /* Transition effect on the border color */
+    .no-touch .nav li:hover i,
+    .no-touch .nav li:active i,
+    .no-touch .nav li:focus i {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  @media (max-width: @screen-xs-max) {
+    .no-touch .nav ul li:nth-child(6n+1) a:hover,
+    .no-touch .nav ul li:nth-child(6n+1) a:active,
+    .no-touch .nav ul li:nth-child(6n+1) a:focus {
+      background: rgb(227, 119, 20);
+    }
+
+    .no-touch .nav li:nth-child(6n+2) a:hover,
+    .no-touch .nav li:nth-child(6n+2) a:active,
+    .no-touch .nav li:nth-child(6n+2) a:focus {
+      background: rgb(245, 160, 41);
+    }
+
+    .no-touch .nav li:nth-child(6n+3) a:hover,
+    .no-touch .nav li:nth-child(6n+3) a:active,
+    .no-touch .nav li:nth-child(6n+3) a:focus {
+      background: rgb(44, 168, 219);
+    }
+
+    .no-touch .nav li:nth-child(6n+4) a:hover,
+    .no-touch .nav li:nth-child(6n+4) a:active,
+    .no-touch .nav li:nth-child(6n+4) a:focus {
+      background: rgb(31, 120, 176);
+    }
+
+    .no-touch .nav li:nth-child(6n+5) a:hover,
+    .no-touch .nav li:nth-child(6n+5) a:active,
+    .no-touch .nav li:nth-child(6n+5) a:focus {
+      background: rgb(39, 70, 90);
+    }
+
+    .no-touch .nav li:nth-child(6n+6) a:hover,
+    .no-touch .nav li:nth-child(6n+6) a:active,
+    .no-touch .nav li:nth-child(6n+6) a:focus {
+      background: rgb(32, 54, 68);
+    }
+
+    .nav ul li {
+      .transition(background 0.5s);
+    }
+  }
+
+  @media (min-width: 32.5em) and (max-width: 38.688em) {
+
+    .nav li span.icon {
+      width: 50%;
+    }
+
+    .nav li .icon + span {
+      font-size: 0.9em;
+    }
+  }
+
+  .nav .nav-toogle {
+    display: none;
+    width: 100%;
+    padding: 0.5em 0.5em 0.8em;
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    font-weight: normal;
+    text-align: left;
+    color: rgb(7, 16, 15);
+    font-size: 1.2em;
+    background: none;
+    border: none;
+    border-bottom: 4px solid rgb(221, 221, 221);
+    cursor: pointer;
+  }
+
+  .nav-toogle i {
+    z-index: -1;
+  }
+
+  .icon-menu {
+    position: relative;
+    top: 3px;
+    line-height: 0;
+    font-size: 1.6em;
+  }
+
+  @media (max-width: 32.438em) {
+
+    /* Unhiding the styled menu link */
+    .nav .navtoogle {
+      margin: 0;
+      display: block;
+    }
+
+    /* Animating the height of the navigation when the button is clicked */
+    /* When JavaScript is disabled, we hide the menu */
+    .no-js .nav ul {
+      max-height: 30em;
+      overflow: hidden;
+    }
+
+    /* When JavaScript is enabled, we hide the menu */
+    .js .nav ul {
+      max-height: 0em;
+      overflow: hidden;
+    }
+
+    /* Displaying the menu when the user has clicked on the button*/
+    .js .nav .active + ul {
+      max-height: 30em;
+      overflow: hidden;
+      .transition(max-height .4s);
+    }
+
+    .nav li span {
+      display: inline-block;
+      height: 100%;
+    }
+
+    .nav a {
+      padding: 0.5em;
+    }
+
+    .icon + span {
+      margin-left: 1em;
+      font-size: 0.8em;
+    }
+
+    /* Adding a left border of 8 px with a different color for each menu item*/
+    .nav li:nth-child(6n+1) {
+      border-left: 8px solid rgb(174, 78, 1);
+    }
+
+    .nav li:nth-child(6n+2) {
+      border-left: 8px solid rgb(191, 117, 20);
+    }
+
+    .nav li:nth-child(6n+3) {
+      border-left: 8px solid rgb(13, 111, 150);
+    }
+
+    .nav li:nth-child(6n+4) {
+      border-left: 8px solid rgb(10, 75, 117);
+    }
+
+    .nav li:nth-child(6n+5) {
+      border-left: 8px solid rgb(16, 34, 44);
+    }
+
+    .nav li:nth-child(6n+6) {
+      border-left: 8px solid rgb(9, 18, 25);
+    }
+
+    /* make the nav bigger on touch screens */
+    .touch .nav a {
+      padding: 0.8em;
+    }
+  }
 }
