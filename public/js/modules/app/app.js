@@ -15,4 +15,6 @@ var ngModule = angular.module('cancer.app',
     $locationProvider.html5Mode(true);
   });
 
+require('./bootstrap')(ngModule);
+
 module.export = ngModule;
