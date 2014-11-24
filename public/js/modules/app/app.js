@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+var modernizr = require('modernizr');
 var angular = require('angular');
 var ngModule = angular.module('cancer.app',
   [
