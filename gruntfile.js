@@ -258,6 +258,16 @@ module.exports = function (grunt) {
         files: {
           '<%= configs.paths.cssBuild %>/app.css': '<%= configs.paths.css %>/build.less'
         }
+      },
+      dev: {
+        options: {
+          compress: false,
+          cleancss: false,
+          banner: '/* Generated at <%= grunt.template.today("yyyy-mm-dd hh:mm:ss") %> */\n'
+        },
+        files: {
+          '<%= configs.paths.cssBuild %>/app.css': '<%= configs.paths.css %>/build.less'
+        }
       }
     },
     "html2js": {
@@ -287,7 +297,7 @@ module.exports = function (grunt) {
         grunt.log.error('Theme files are missing.');
       }
 
-      grunt.task.run(['clean:css', 'copy:font-awesome', 'less:dist']);
+      grunt.task.run(['clean:css', 'copy:font-awesome', 'less:dev']);
     });
 
   // Tasks
