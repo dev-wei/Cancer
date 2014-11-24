@@ -1,7 +1,8 @@
 nav.nav
-  li(ng-repeat='item in items track by $index')
-    a(href='{{item.url}}', target='{{item.target}}')
-      span.icon
-        i(aria-hidden='true',ng-class='item.iconClass')
-      span(ng-bind='item.title')
+  ul
+    li(ng-repeat='item in items track by $index')
+      a(href='{{item.url}}', target='{{item.target}}')
+        span.icon
+          i(aria-hidden='true',ng-class='item.iconClass')
+        span(ng-bind='item.title')
 

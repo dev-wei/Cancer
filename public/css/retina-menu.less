@@ -1,7 +1,79 @@
 @import "mixins/shared";
 @import "variables";
 
+.no-touch .retina-menu {
+  .nav ul:hover a {
+    color: rgba(249, 249, 249, .5);
+  }
+
+  .nav ul:hover a:hover {
+    color: rgba(249, 249, 249, 0.99);
+  }
+
+  @media (min-width: @screen-lg-min) {
+    .nav li:nth-child(6n+1) a:hover,
+    .nav li:nth-child(6n+1) a:active,
+    .nav li:nth-child(6n+1) a:focus {
+      border-bottom: 4px solid rgb(174, 78, 1);
+    }
+
+    .nav li:nth-child(6n+2) a:hover,
+    .nav li:nth-child(6n+2) a:active,
+    .nav li:nth-child(6n+2) a:focus {
+      border-bottom: 4px solid rgb(191, 117, 20);
+    }
+
+    .nav li:nth-child(6n+3) a:hover,
+    .nav li:nth-child(6n+3) a:active,
+    .nav li:nth-child(6n+3) a:focus {
+      border-bottom: 4px solid rgb(12, 110, 149);
+    }
+
+    .nav li:nth-child(6n+4) a:hover,
+    .nav li:nth-child(6n+4) a:active,
+    .nav li:nth-child(6n+4) a:focus {
+      border-bottom: 4px solid rgb(10, 75, 117);
+    }
+
+    .nav li:nth-child(6n+5) a:hover,
+    .nav li:nth-child(6n+5) a:active,
+    .nav li:nth-child(6n+5) a:focus {
+      border-bottom: 4px solid rgb(16, 34, 44);
+    }
+
+    .nav li:nth-child(6n+6) a:hover,
+    .nav li:nth-child(6n+6) a:active,
+    .nav li:nth-child(6n+6) a:focus {
+      border-bottom: 4px solid rgb(9, 18, 25);
+    }
+
+    .nav a:hover {
+      height: 10em;
+    }
+
+    .nav a:hover .icon + span {
+      margin-top: 3.2em;
+      .transition(margin .5s);
+    }
+
+    .nav a:hover i,
+    .nav a:active i,
+    .nav a:focus i {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
+      .transition(box-shadow .4s ease-in-out);
+    }
+  }
+}
+
 .retina-menu {
+
+  @icon-team: "\e000";
+  @icon-blog: "\e001";
+  @icon-home: "\e002";
+  @icon-portfolio: "\e003";
+  @icon-services: "\e004";
+  @icon-contact: "\e005";
+  @icon-menu: "\e006";
 
   @font-face {
     font-family: 'retina-menu';
@@ -29,14 +101,6 @@
     line-height: 1;
     -webkit-font-smoothing: antialiased;
   }
-
-  @icon-team: "\e000";
-  @icon-blog: "\e001";
-  @icon-home: "\e002";
-  @icon-portfolio: "\e003";
-  @icon-services: "\e004";
-  @icon-contact: "\e005";
-  @icon-menu: "\e006";
 
   .icon-team:before {
     content: @icon-team;
@@ -100,14 +164,6 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
-  .no-touch .nav ul:hover a {
-    color: rgba(249, 249, 249, .5);
-  }
-
-  .no-touch .nav ul:hover a:hover {
-    color: rgba(249, 249, 249, 0.99);
-  }
-
   .nav li:nth-child(6n+1) {
     background: rgb(208, 101, 3);
   }
@@ -145,42 +201,6 @@
       width: auto;
     }
 
-    .no-touch .nav li:nth-child(6n+1) a:hover,
-    .no-touch .nav li:nth-child(6n+1) a:active,
-    .no-touch .nav li:nth-child(6n+1) a:focus {
-      border-bottom: 4px solid rgb(174, 78, 1);
-    }
-
-    .no-touch .nav li:nth-child(6n+2) a:hover,
-    .no-touch .nav li:nth-child(6n+2) a:active,
-    .no-touch .nav li:nth-child(6n+2) a:focus {
-      border-bottom: 4px solid rgb(191, 117, 20);
-    }
-
-    .no-touch .nav li:nth-child(6n+3) a:hover,
-    .no-touch .nav li:nth-child(6n+3) a:active,
-    .no-touch .nav li:nth-child(6n+3) a:focus {
-      border-bottom: 4px solid rgb(12, 110, 149);
-    }
-
-    .no-touch .nav li:nth-child(6n+4) a:hover,
-    .no-touch .nav li:nth-child(6n+4) a:active,
-    .no-touch .nav li:nth-child(6n+4) a:focus {
-      border-bottom: 4px solid rgb(10, 75, 117);
-    }
-
-    .no-touch .nav li:nth-child(6n+5) a:hover,
-    .no-touch .nav li:nth-child(6n+5) a:active,
-    .no-touch .nav li:nth-child(6n+5) a:focus {
-      border-bottom: 4px solid rgb(16, 34, 44);
-    }
-
-    .no-touch .nav li:nth-child(6n+6) a:hover,
-    .no-touch .nav li:nth-child(6n+6) a:active,
-    .no-touch .nav li:nth-child(6n+6) a:focus {
-      border-bottom: 4px solid rgb(9, 18, 25);
-    }
-
     .icon {
       padding-top: 1.4em;
     }
@@ -190,24 +210,15 @@
       .transition(margin .5s);
     }
 
-    /* Animating the height of the element*/
     .nav a {
       height: 9em;
     }
 
-    .no-touch .nav a:hover,
     .nav a:active,
     .nav a:focus {
       height: 10em;
     }
 
-    /* Making the text follow the height animation */
-    .no-touch .nav a:hover .icon + span {
-      margin-top: 3.2em;
-      .transition(margin .5s);
-    }
-
-    /* Positioning the icons and preparing for the animation*/
     .nav i {
       position: relative;
       display: inline-block;
@@ -219,14 +230,6 @@
       background: rgba(255, 255, 255, 0.1);
       .translate3d(0, 0, 0);
       .transition(box-shadow .6s ease-in-out);
-    }
-
-    /* Animate the box-shadow to create the effect */
-    .no-touch .nav a:hover i,
-    .no-touch .nav a:active i,
-    .no-touch .nav a:focus i {
-      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
-      .transition(box-shadow .4s ease-in-out);
     }
   }
 
@@ -436,3 +439,5 @@
     }
   }
 }
+
+
