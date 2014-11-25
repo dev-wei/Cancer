@@ -1,4 +1,8 @@
 nav.nav
+  button.nav-toogle(
+  ng-click='isCollapsed = !isCollapsed',
+  ng-class='{"active":isCollapsed}')
+    i.icon-menu(aria-hidden='true') &nbsp;Menu
   ul
     li(ng-repeat='item in items track by $index')
       a(href='{{item.url}}', target='{{item.target}}')

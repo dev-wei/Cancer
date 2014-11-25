@@ -7,9 +7,27 @@
 @retina-screen-phone-large: 38.688em;
 @retina-screen-phone: 32.5em;
 
-@retina-colors: rgb(208, 101, 3), rgb(233, 147, 26), rgb(22, 145, 190), rgb(22, 107, 162), rgb(27, 54, 71), rgb(21, 40, 54);
-@retina-background-colors: rgb(227, 119, 20), rgb(245, 160, 41), rgb(44, 168, 219), rgb(31, 120, 176), rgb(39, 70, 90), rgb(32, 54, 68);
-@retina-border-colors: rgb(174, 78, 1), rgb(191, 117, 20), rgb(12, 110, 149), rgb(10, 75, 117), rgb(16, 34, 44), rgb(9, 18, 25);
+@retina-colors:
+  rgb(208, 101, 3),
+  rgb(233, 147, 26),
+  rgb(22, 145, 190),
+  rgb(22, 107, 162),
+  rgb(27, 54, 71),
+  rgb(21, 40, 54);
+@retina-background-colors:
+  rgb(227, 119, 20),
+  rgb(245, 160, 41),
+  rgb(44, 168, 219),
+  rgb(31, 120, 176),
+  rgb(39, 70, 90),
+  rgb(32, 54, 68);
+@retina-border-colors:
+  rgb(174, 78, 1),
+  rgb(191, 117, 20),
+  rgb(12, 110, 149),
+  rgb(10, 75, 117),
+  rgb(16, 34, 44),
+  rgb(9, 18, 25);
 @retina-colors-length: length(@retina-colors);
 
 .loop-retina-colors(@counter, @type) when (@counter > 0) {
@@ -127,7 +145,7 @@
   @icon-portfolio: "\e003";
   @icon-services: "\e004";
   @icon-contact: "\e005";
-  @icon-menu: "\e006";
+  @icon-menu: "\f0c9";
 
   @font-face {
     font-family: 'retina-menu';
@@ -367,7 +385,7 @@
   }
 
   @media (max-width: @retina-screen-phone) {
-    .nav .navtoogle {
+    .nav .nav-toogle {
       margin: 0;
       display: block;
     }
@@ -387,10 +405,6 @@
     }
 
     .loop-retina-colors(@retina-colors-length, 'border-left');
-
-    .touch .nav a {
-      padding: 0.8em;
-    }
   }
 }
 
