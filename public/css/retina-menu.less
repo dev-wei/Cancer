@@ -139,21 +139,22 @@
 
 .retina-menu {
 
-  @icon-team: "\e000";
-  @icon-blog: "\e001";
-  @icon-home: "\e002";
-  @icon-portfolio: "\e003";
-  @icon-services: "\e004";
-  @icon-contact: "\e005";
-  @icon-menu: "\f0c9";
+  @icons: "icomoon";
+  @icon-team: "\e671";
+  @icon-blog: "\e609";
+  @icon-home: "\e600";
+  @icon-portfolio: "\e62d";
+  @icon-services: "\e6a5";
+  @icon-contact: "\e63e";
+  @icon-menu: "\e6b7";
 
   @font-face {
     font-family: 'retina-menu';
-    src: url('./fonts/retina-menu.eot');
-    src: url('./fonts/retina-menu.eot?#iefix') format('embedded-opentype'),
-    url('./fonts/retina-menu.woff') format('woff'),
-    url('./fonts/retina-menu.ttf') format('truetype'),
-    url('./fonts/retina-menu.svg#icomoon') format('svg');
+    src: url('./fonts/@{icons}.eot');
+    src: url('./fonts/@{icons}.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/@{icons}.woff') format('woff'),
+    url('./fonts/@{icons}.ttf') format('truetype'),
+    url('./fonts/@{icons}.svg#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
   }
