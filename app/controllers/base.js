@@ -1,3 +1,4 @@
+'use strict';
 var moment = require('moment');
 var _ = require('lodash');
 
@@ -5,13 +6,13 @@ var BaseController = function () {
   this.HTTP_INTERNAL_ERROR = 500;
 
   this.getTimestamp = function (start) {
-    var start = moment(start).utc();
+    start = moment(start).utc();
     var now = moment().utc();
     return {
       "timestamp": now.toJSON(),
       "elapsed": now.subtract(start).millisecond()
-    }
-  }
+    };
+  };
 };
 BaseController.prototype = Object.create(Object.prototype);
 BaseController.prototype.constructor = BaseController;
