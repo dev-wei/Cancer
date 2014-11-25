@@ -4,9 +4,12 @@
 @retina-screen-desktop: 50em;
 @retina-screen-desktop-large: 61.250em;
 @retina-screen-tablet: 49.938em;
+@retina-screen-phone-large: 38.688em;
+@retina-screen-phone: 32.5em;
 
 @retina-colors: rgb(208, 101, 3), rgb(233, 147, 26), rgb(22, 145, 190), rgb(22, 107, 162), rgb(27, 54, 71), rgb(21, 40, 54);
-@retina-bottom-colors: rgb(174, 78, 1), rgb(191, 117, 20), rgb(12, 110, 149), rgb(10, 75, 117), rgb(16, 34, 44), rgb(9, 18, 25);
+@retina-background-colors: rgb(227, 119, 20), rgb(245, 160, 41), rgb(44, 168, 219), rgb(31, 120, 176), rgb(39, 70, 90), rgb(32, 54, 68);
+@retina-border-colors: rgb(174, 78, 1), rgb(191, 117, 20), rgb(12, 110, 149), rgb(10, 75, 117), rgb(16, 34, 44), rgb(9, 18, 25);
 @retina-colors-length: length(@retina-colors);
 
 .loop-retina-colors(@counter, @type) when (@counter > 0) {
@@ -22,7 +25,21 @@
     .nav li:nth-child(@{retina-colors-length}n+@{counter}) a:hover,
     .nav li:nth-child(@{retina-colors-length}n+@{counter}) a:active,
     .nav li:nth-child(@{retina-colors-length}n+@{counter}) a:focus {
-      border-bottom: 4px solid extract(@retina-bottom-colors, @counter);
+      border-bottom: 4px solid extract(@retina-border-colors, @counter);
+    }
+  }
+
+  & when (@type = 'background') {
+    .nav li:nth-child(@{retina-colors-length}n+@{counter}) a:hover,
+    .nav li:nth-child(@{retina-colors-length}n+@{counter}) a:active,
+    .nav li:nth-child(@{retina-colors-length}n+@{counter}) a:focus {
+      background: extract(@retina-background-colors, @counter);
+    }
+  }
+
+  & when (@type = 'border-left') {
+    .nav li:nth-child(@{retina-colors-length}n+@{counter}) {
+      border-left: 8px solid extract(@retina-border-colors, @counter);;
     }
   }
 }
@@ -57,42 +74,47 @@
   }
 
   @media (max-width: @retina-screen-tablet) {
+    .loop-retina-colors(@retina-colors-length, 'background');
+  }
 
-    /* Instead of adding a border, we transition the background color */
-    .nav ul li:nth-child(6n+1) a:hover,
-    .nav ul li:nth-child(6n+1) a:active,
-    .nav ul li:nth-child(6n+1) a:focus {
-      background: rgb(227, 119, 20);
+  @media (min-width: @retina-screen-phone) and (max-width: @retina-screen-tablet) {
+    .nav li:hover i,
+    .nav li:active i,
+    .nav li:focus i {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+
+}
+
+.no-js .retina-menu {
+  @media (max-width: @retina-screen-phone) {
+    .nav ul {
+      max-height: 30em;
+      overflow: hidden;
+    }
+  }
+}
+
+.js .retina-menu {
+  @media (max-width: @retina-screen-phone) {
+    .nav ul {
+      max-height: 0em;
+      overflow: hidden;
     }
 
-    .nav li:nth-child(6n+2) a:hover,
-    .nav li:nth-child(6n+2) a:active,
-    .nav li:nth-child(6n+2) a:focus {
-      background: rgb(245, 160, 41);
+    .nav .active + ul {
+      max-height: 30em;
+      overflow: hidden;
+      .transition(max-height .4s);
     }
+  }
+}
 
-    .nav li:nth-child(6n+3) a:hover,
-    .nav li:nth-child(6n+3) a:active,
-    .nav li:nth-child(6n+3) a:focus {
-      background: rgb(44, 168, 219);
-    }
-
-    .no-touch .nav li:nth-child(6n+4) a:hover,
-    .no-touch .nav li:nth-child(6n+4) a:active,
-    .no-touch .nav li:nth-child(6n+4) a:focus {
-      background: rgb(31, 120, 176);
-    }
-
-    .no-touch .nav li:nth-child(6n+5) a:hover,
-    .no-touch .nav li:nth-child(6n+5) a:active,
-    .no-touch .nav li:nth-child(6n+5) a:focus {
-      background: rgb(39, 70, 90);
-    }
-
-    .no-touch .nav li:nth-child(6n+6) a:hover,
-    .no-touch .nav li:nth-child(6n+6) a:active,
-    .no-touch .nav li:nth-child(6n+6) a:focus {
-      background: rgb(32, 54, 68);
+.touch .retina-menu {
+  @media (max-width: @retina-screen-phone) {
+    .nav a {
+      padding: 0.8em;
     }
   }
 }
@@ -253,49 +275,70 @@
 
   @media (max-width: @retina-screen-tablet) {
 
-    /* Instead of adding a border, we transition the background color */
-    .no-touch .nav ul li:nth-child(6n+1) a:hover,
-    .no-touch .nav ul li:nth-child(6n+1) a:active,
-    .no-touch .nav ul li:nth-child(6n+1) a:focus {
-      background: rgb(227, 119, 20);
-    }
-
-    .no-touch .nav li:nth-child(6n+2) a:hover,
-    .no-touch .nav li:nth-child(6n+2) a:active,
-    .no-touch .nav li:nth-child(6n+2) a:focus {
-      background: rgb(245, 160, 41);
-    }
-
-    .no-touch .nav li:nth-child(6n+3) a:hover,
-    .no-touch .nav li:nth-child(6n+3) a:active,
-    .no-touch .nav li:nth-child(6n+3) a:focus {
-      background: rgb(44, 168, 219);
-    }
-
-    .no-touch .nav li:nth-child(6n+4) a:hover,
-    .no-touch .nav li:nth-child(6n+4) a:active,
-    .no-touch .nav li:nth-child(6n+4) a:focus {
-      background: rgb(31, 120, 176);
-    }
-
-    .no-touch .nav li:nth-child(6n+5) a:hover,
-    .no-touch .nav li:nth-child(6n+5) a:active,
-    .no-touch .nav li:nth-child(6n+5) a:focus {
-      background: rgb(39, 70, 90);
-    }
-
-    .no-touch .nav li:nth-child(6n+6) a:hover,
-    .no-touch .nav li:nth-child(6n+6) a:active,
-    .no-touch .nav li:nth-child(6n+6) a:focus {
-      background: rgb(32, 54, 68);
-    }
-
     .nav ul li {
-      .transition( background 0.5s);
+      .transition(background 0.5s);
     }
 
   }
 
+  @media (min-width: @retina-screen-phone) and (max-width: @retina-screen-tablet) {
+
+    .nav li {
+      display: block;
+      float: left;
+      width: 50%;
+    }
+
+    .nav a {
+      padding: 0.8em;
+    }
+
+    .nav li span,
+    .nav li span.icon {
+      display: inline-block;
+    }
+
+    .nav li span.icon {
+      width: 50%;
+    }
+
+    .nav li .icon + span {
+      font-size: 1em;
+    }
+
+    .icon + span {
+      position: relative;
+      top: -0.2em;
+    }
+
+    .nav li i {
+      display: inline-block;
+      padding: 8% 9%;
+      border: 4px solid transparent;
+      border-radius: 50%;
+      font-size: 1.5em;
+      background: rgba(255, 255, 255, 0.1);
+      .transition(border .5s);
+    }
+
+    /* Transition effect on the border color */
+    .no-touch .nav li:hover i,
+    .no-touch .nav li:active i,
+    .no-touch .nav li:focus i {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+    }
+
+  }
+
+  @media (min-width: @retina-screen-phone) and (max-width: @retina-screen-phone-large) {
+    .nav li span.icon {
+      width: 50%;
+    }
+
+    .nav li .icon + span {
+      font-size: 0.9em;
+    }
+  }
 
   .nav .nav-toogle {
     display: none;
@@ -323,32 +366,10 @@
     font-size: 1.6em;
   }
 
-  @media (max-width: 32.438em) {
-
-    /* Unhiding the styled menu link */
+  @media (max-width: @retina-screen-phone) {
     .nav .navtoogle {
       margin: 0;
       display: block;
-    }
-
-    /* Animating the height of the navigation when the button is clicked */
-    /* When JavaScript is disabled, we hide the menu */
-    .no-js .nav ul {
-      max-height: 30em;
-      overflow: hidden;
-    }
-
-    /* When JavaScript is enabled, we hide the menu */
-    .js .nav ul {
-      max-height: 0em;
-      overflow: hidden;
-    }
-
-    /* Displaying the menu when the user has clicked on the button*/
-    .js .nav .active + ul {
-      max-height: 30em;
-      overflow: hidden;
-      .transition(max-height .4s);
     }
 
     .nav li span {
@@ -365,32 +386,8 @@
       font-size: 0.8em;
     }
 
-    /* Adding a left border of 8 px with a different color for each menu item*/
-    .nav li:nth-child(6n+1) {
-      border-left: 8px solid rgb(174, 78, 1);
-    }
+    .loop-retina-colors(@retina-colors-length, 'border-left');
 
-    .nav li:nth-child(6n+2) {
-      border-left: 8px solid rgb(191, 117, 20);
-    }
-
-    .nav li:nth-child(6n+3) {
-      border-left: 8px solid rgb(13, 111, 150);
-    }
-
-    .nav li:nth-child(6n+4) {
-      border-left: 8px solid rgb(10, 75, 117);
-    }
-
-    .nav li:nth-child(6n+5) {
-      border-left: 8px solid rgb(16, 34, 44);
-    }
-
-    .nav li:nth-child(6n+6) {
-      border-left: 8px solid rgb(9, 18, 25);
-    }
-
-    /* make the nav bigger on touch screens */
     .touch .nav a {
       padding: 0.8em;
     }
