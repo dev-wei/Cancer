@@ -41,14 +41,14 @@ describe('Javascript memory allocation', function () {
     expect(message).to.be.ok();
   });
 
-  it.only('Testing code of ForEach', function () {
+  it('Testing code of ForEach', function () {
     var item = '';
     _.forEach(item, function () {
       expect().fail();
     });
   });
 
-  it.only('Testing code of shifting postions', function () {
+  it('Testing code of shifting postions', function () {
     expect(8 >> 1).to.be.eql(4);
     expect(8 << 1).to.be.eql(16);
   });

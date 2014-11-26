@@ -53,6 +53,10 @@ module.exports = function (grunt) {
         {
           "folder": 'app/modules/grunt-browserify',
           "mask": '*.spec.*'
+        },
+        {
+          "folder": 'app/modules/smart-forEach',
+          "mask": '*.spec.*'
         }
       ]
     },
