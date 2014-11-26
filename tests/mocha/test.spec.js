@@ -1,4 +1,5 @@
 'use strict';
+var _ = require('lodash');
 var expect = require('expect.js');
 
 describe('Javascript memory allocation', function () {
@@ -10,9 +11,9 @@ describe('Javascript memory allocation', function () {
     });
 
     this.print = function () {
-      for(var i in self){
-        if(typeof self[i] !== 'function')
-        console.log(self[i]);
+      for (var i in self) {
+        if (typeof self[i] !== 'function')
+          console.log(self[i]);
       }
     };
   };
@@ -39,4 +40,32 @@ describe('Javascript memory allocation', function () {
     message.print();
     expect(message).to.be.ok();
   });
+
+  it.only('Testing code of ForEach', function () {
+    var item = '';
+    _.forEach(item, function () {
+      expect().fail();
+    });
+  });
+
+  it.only('Testing code of shifting postions', function () {
+    expect(8 >> 1).to.be.eql(4);
+    expect(8 << 1).to.be.eql(16);
+  });
+
+  //it.only('let vs var', function () {
+  //  var a = 5;
+  //  var b = 10;
+  //
+  //  if (a === 5) {
+  //    let a = 4; // The scope is inside the if-block
+  //    var b = 1; // The scope is inside the function
+  //
+  //    expect(a).to.be.eql(4);  // 4
+  //    expect(b).to.be.eql(1);  // 1
+  //  }
+  //
+  //  expect(a).to.be.eql(5);  // 5
+  //  expect(b).to.be.eql(1);  // 1
+  //});
 });
