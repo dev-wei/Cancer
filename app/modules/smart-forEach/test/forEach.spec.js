@@ -1,7 +1,7 @@
 'use strict';
 var _ = require('lodash');
 var expect = require('expect.js');
-var forEach = require('../src/forEach').forEach;
+var forEach = require('../src/forEach.js').forEach;
 
 describe('Foreach test suite', function () {
   var order, track;
