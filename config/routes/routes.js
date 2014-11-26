@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 
-var index = require('../app/controllers/index');
+var index = require('../../app/controllers/index');
 router.get('/', index.getDefault);
 
 //User Routes
@@ -26,7 +26,7 @@ router.get('/', index.getDefault);
 //Finish with setting up the userId param
 //router.param('userId', users.user);
 
-var test = require('../app/controllers/test');
+var test = require('../../app/controllers/test');
 router.get('/tests/:name', test.test);
 
 module.exports = router;

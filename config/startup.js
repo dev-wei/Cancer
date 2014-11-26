@@ -1,9 +1,8 @@
 'use strict';
-var path = require('path'),
-  passport = require('passport'),
-  config = require('./config'),
-//auth = require('./config/middlewares/authorization'),
-  mongoose = require('mongoose');
+var path = require('path');
+var passport = require('passport');
+var config = require('./config');
+var mongoose = require('mongoose');
 
 module.exports = function (logger, http) {
   if (!logger) {
@@ -23,7 +22,6 @@ module.exports = function (logger, http) {
   });
 
   require('./models');
-
   require('./passport')(passport);
 
   var app = require('express')();

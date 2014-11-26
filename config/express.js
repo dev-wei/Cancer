@@ -11,15 +11,13 @@ var path = require('path'),
 //json = require('json-middleware'),
   helpers = require('view-helpers'),
   config = require('./config'),
-  router = require('./routes'),
-  apiRouter = require('./apiRoutes');
+  router = require('./routes/routes'),
+  apiRouter = require('./routes/apiRoutes'),
+  passportRoutes = require('./routes/passportRoutes');
 
 module.exports = function (app, passport, db) {
   if (!app) {
     app = require('express')();
-  }
-  if (!passport) {
-    passport = require('passport');
   }
 
   app.set('showStackError', true);
@@ -79,6 +77,7 @@ module.exports = function (app, passport, db) {
 
   app.use('/', router);
   app.use('/api', apiRouter);
+  app.use('/passport', passportRoutes(passport));
   app.enable('trust proxy');
 
   app.use(function (req, res, next) {

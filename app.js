@@ -2,9 +2,9 @@
 var config = require('./config/config');
 
 if (config.env === 'local') {
-  require('./config/start')();
+  require('./config/startup')();
 } else {
-  require('./config/cluster')({}, require('./config/start'));
+  require('./config/cluster')({}, require('./config/startup'));
 }
 
 
