@@ -11,6 +11,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-mkdir');
   grunt.loadNpmTasks('grunt-mocha-test');
@@ -24,9 +25,9 @@ module.exports = function (grunt) {
   var pkg = grunt.file.readJSON('package.json');
 
   var browserify = new GruntBrowserify(
-    pkg.sources,
-    pkg.browser,
-    pkg['browserify-shim']);
+      pkg.sources,
+      pkg.browser,
+      pkg['browserify-shim']);
 
   var toMochaTest = function (files) {
     return _.map(files, function (file) {
@@ -291,65 +292,65 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build:css', 'build theme',
-    function () {
-      var isValidTheme =
-        grunt.file.exists(configs.paths.css, 'variables.less') &&
-        grunt.file.exists(configs.paths.css, 'build.less') &&
-        grunt.file.exists(configs.paths.css, 'app.less');
+      function () {
+        var isValidTheme =
+            grunt.file.exists(configs.paths.css, 'variables.less') &&
+            grunt.file.exists(configs.paths.css, 'build.less') &&
+            grunt.file.exists(configs.paths.css, 'app.less');
 
-      if (!isValidTheme) {
-        grunt.log.error('Theme files are missing.');
-      }
+        if (!isValidTheme) {
+          grunt.log.error('Theme files are missing.');
+        }
 
-      grunt.task.run(['clean:css', 'copy:font-awesome', 'less:dev']);
-    });
+        grunt.task.run(['clean:css', 'copy:font-awesome', 'less:dev']);
+      });
 
   // Tasks
   grunt.registerTask(
-    'default',
-    ['build']);
+      'default',
+      ['build']);
 
   grunt.registerTask(
-    'build:app',
-    ['mkdir:all', 'copy:browserify', 'run:browserify-app', 'clean:browserify']);
+      'build:app',
+      ['mkdir:all', 'copy:browserify', 'run:browserify-app', 'clean:browserify']);
 
   grunt.registerTask(
-    'build:tpl',
-    ['mkdir:all', 'html2js:main', 'run:browserify-tpl']);
+      'build:tpl',
+      ['mkdir:all', 'html2js:main', 'run:browserify-tpl']);
 
   grunt.registerTask(
-    'build:libs',
-    ['mkdir:all', 'copy:browserify', 'run:browserify-libs', 'clean:browserify']);
+      'build:libs',
+      ['mkdir:all', 'copy:browserify', 'run:browserify-libs', 'clean:browserify']);
 
   grunt.registerTask(
-    'build:app-coverage',
-    ['mkdir:all', 'copy:browserify', 'run:browserify-app-coverage', 'clean:browserify']);
+      'build:app-coverage',
+      ['mkdir:all', 'copy:browserify', 'run:browserify-app-coverage', 'clean:browserify']);
 
   grunt.registerTask(
-    'build:coverage',
-    ['build:app-coverage']);
+      'build:coverage',
+      ['build:app-coverage']);
 
   grunt.registerTask(
-    'dev',
-    ['clean:build', 'build:tpl', 'build:app', 'build:css', 'copy:build']);
+      'dev',
+      ['clean:build', 'build:tpl', 'build:app', 'build:css', 'copy:build']);
 
   grunt.registerTask(
-    'build',
-    ['clean:build', 'build:tpl', 'build:app', 'uglify:app', 'uglify:libs', 'build:css', 'copy:build']);
+      'build',
+      ['clean:build', 'build:tpl', 'build:app', 'uglify:app', 'uglify:libs', 'build:css', 'copy:build']);
 
   grunt.registerTask(
-    'test',
-    ['mochaTest:test', 'karma:unit']);
+      'test',
+      ['mochaTest:test', 'karma:unit']);
 
   grunt.registerTask(
-    'node:coverage',
-    ['clean:coverage', 'mochaTest:test', 'mocha_istanbul']);
+      'node:coverage',
+      ['clean:coverage', 'mochaTest:test', 'mocha_istanbul']);
 
   grunt.registerTask(
-    'ui:coverage',
-    ['clean:coverage', 'karma:coverage']);
+      'ui:coverage',
+      ['clean:coverage', 'karma:coverage']);
 
   grunt.registerTask(
-    'buddy',
-    ['build:libs', 'build', 'test', 'node:coverage', 'ui:coverage', 'clean:build']);
+      'buddy',
+      ['build:libs', 'build', 'test', 'node:coverage', 'ui:coverage', 'clean:build']);
 };

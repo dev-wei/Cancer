@@ -9,7 +9,8 @@ var ngModule = angular.module('cancer.app',
     'ngResource',
     'ngSanitize',
     'ui.bootstrap',
-    require('../common').name
+    require('../common').name,
+    require('../graph').name
   ])
   .config(function ($httpProvider, $locationProvider) {
     $httpProvider.defaults.useXDomain = true;
