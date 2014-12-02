@@ -10,7 +10,6 @@ var ngModule = angular.module('cancer.graph', [
   require('../common').name
 ]).value('version', '0.1');
 
-require('./directives/resize')(ngModule);
 require('./directives/stockTrendChart')(ngModule);
 
 module.exports = ngModule;

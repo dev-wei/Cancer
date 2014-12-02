@@ -10,6 +10,7 @@ var ngModule = angular.module('cancer.common', [
 ]).value('version', '0.1');
 
 require('./services/configuration')(ngModule);
+require('./services/resizer')(ngModule);
 require('./controllers/header')(ngModule);
 require('./directives/retinaMenu')(ngModule);
 

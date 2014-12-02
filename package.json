@@ -97,6 +97,7 @@
     "angular-bootstrap": "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
     "angular-deferred-bootstrap": "./bower_components/angular-deferred-bootstrap/angular-deferred-bootstrap.js",
     "modernizr": "./bower_components/modernizr/modernizr.js",
+    "moment": "./bower_components/moment/moment.js",
     "d3": "./bower_components/d3/d3.js"
   },
   "browser": {
@@ -109,6 +110,7 @@
     "angular-bootstrap": "./build/ui-bootstrap-tpls.js",
     "angular-deferred-bootstrap": "./build/angular-deferred-bootstrap.js",
     "modernizr": "./build/modernizr.js",
+    "moment": "./build/moment.js",
     "d3": "./build/d3.js"
   },
   "browserify-shim": {
