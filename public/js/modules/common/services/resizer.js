@@ -1,5 +1,5 @@
 'use strict';
-module.exports = function (ngModule) {
+var Resizer = function (ngModule) {
   var _ = require('lodash');
   var DEBOUNCE_DELAY = 150;
   ngModule.service('Resizer', function ($rootScope) {
@@ -21,3 +21,5 @@ module.exports = function (ngModule) {
     };
   });
 };
+
+module.exports = Resizer;

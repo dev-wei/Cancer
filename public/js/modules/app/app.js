@@ -14,6 +14,7 @@ var ngModule = angular.module('cancer.app',
   ])
   .config(function ($httpProvider, $locationProvider) {
     $httpProvider.defaults.useXDomain = true;
+
     $locationProvider.html5Mode(true);
   });
 
