@@ -3,12 +3,9 @@ var _ = require('lodash');
 
 var Header = function (ngModule) {
   ngModule.controller('Header', function ($scope, Ajax) {
-    $scope.menus = [];
     Ajax.get(Ajax.api.MENU)
       .then(function (data) {
-        _.forEach(data.menus, function (menu) {
-          $scope.menus.push(menu);
-        });
+        $scope.menus = data.menus;
       });
   });
 };
