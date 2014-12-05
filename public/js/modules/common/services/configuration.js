@@ -8,7 +8,7 @@ var Configuration = function (ngModule) {
     };
   });
   ngModule.service('Configuration', function (APP_CONFIG) {
-    this.getMenus = _.constant(APP_CONFIG.return.menus);
+    this.getConfig = _.constant(APP_CONFIG.return);
   });
 };
 
