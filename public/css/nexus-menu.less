@@ -1,5 +1,6 @@
 @import "mixins/shared";
 @import "variables";
+@import "menu";
 
 .no-touch .nexus-menu {
   .gn-menu-main a:hover,
@@ -206,10 +207,72 @@
     font-weight: normal;
     font-style: normal;
     font-variant: normal;
-    font-family: 'ecoicons';
+    font-family: 'icomoon';
     line-height: 1;
     speak: none;
     -webkit-font-smoothing: antialiased;
   }
 
+  .gn-icon-help::before {
+    content: @icomoon-home;
+  }
+
+  .gn-icon-earth::before {
+    content: @icomoon-home;
+  }
+
+  .gn-icon-cog::before {
+    content: @icomoon-home;
+  }
+
+  .gn-icon-search::before {
+    content: @icomoon-home;
+  }
+
+  .gn-icon-download::before {
+    content: @icomoon-home;
+  }
+
+  .gn-icon-photoshop::before {
+    content: @icomoon-home;
+  }
+
+  .gn-icon-illustrator::before {
+    content: @icomoon-home;
+  }
+
+  .gn-icon-archive::before {
+    content: @icomoon-home;
+  }
+
+  .gn-icon-article::before {
+    content: @icomoon-home;
+  }
+
+  .gn-icon-pictures::before {
+    content: @icomoon-home;
+  }
+
+  .gn-icon-videos::before {
+    content: @icomoon-home;
+  }
+
+  /* if an icon anchor has a span, hide the span */
+
+  .gn-icon span {
+    width: 0;
+    height: 0;
+    display: block;
+    overflow: hidden;
+  }
+
+  .gn-icon-menu::before {
+    margin-left: -15px;
+    vertical-align: -2px;
+    width: 30px;
+    height: 3px;
+    background: #5f6f81;
+    box-shadow: 0 3px white, 0 -6px #5f6f81, 0 -9px white, 0 -12px #5f6f81;
+    content: '';
+  }
 }
