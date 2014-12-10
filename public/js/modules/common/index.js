@@ -14,5 +14,6 @@ require('./services/configuration')(ngModule);
 require('./services/resizer')(ngModule);
 require('./controllers/header')(ngModule);
 require('./directives/retinaMenu')(ngModule);
+require('./directives/nexusMenu')(ngModule);
 
 module.exports = ngModule;

@@ -1,5 +1,6 @@
 @import "mixins/shared";
 @import "variables";
+@import "menu";
 
 @retina-screen-desktop: 50em;
 @retina-screen-desktop-large: 61.250em;
@@ -143,6 +144,44 @@ rgb(9, 18, 25);
     text-transform: none;
     line-height: 1;
     -webkit-font-smoothing: antialiased;
+  }
+
+  .icon-team,
+  .icon-blog,
+  .icon-home,
+  .icon-portfolio,
+  .icon-services,
+  .icon-contact,
+  .icon-menu {
+    font-family: 'icomoon';
+  }
+
+  .icon-team::before {
+    content: @icomoon-users;
+  }
+
+  .icon-blog::before {
+    content: @icomoon-blog;
+  }
+
+  .icon-home::before {
+    content: @icomoon-home;
+  }
+
+  .icon-portfolio::before {
+    content: @icomoon-stack;
+  }
+
+  .icon-services::before {
+    content: @icomoon-lab;
+  }
+
+  .icon-contact::before {
+    content: @icomoon-address-book;
+  }
+
+  .icon-menu::before {
+    content: @icomoon-menu;
   }
 
   .nav ul {
