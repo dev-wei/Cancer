@@ -98,7 +98,8 @@
     "angular-deferred-bootstrap": "./bower_components/angular-deferred-bootstrap/angular-deferred-bootstrap.js",
     "modernizr": "./bower_components/modernizr/modernizr.js",
     "moment": "./bower_components/moment/moment.js",
-    "d3": "./bower_components/d3/d3.js"
+    "d3": "./bower_components/d3/d3.js",
+    "leaflet": "./bower_components/leaflet/dist/leaflet-src.js"
   },
   "browser": {
     "lodash": "lodash",
@@ -111,7 +112,8 @@
     "angular-deferred-bootstrap": "./build/angular-deferred-bootstrap.js",
     "modernizr": "./build/modernizr.js",
     "moment": "./build/moment.js",
-    "d3": "./build/d3.js"
+    "d3": "./build/d3.js",
+    "leaflet": "./build/leaflet-src.js"
   },
   "browserify-shim": {
     "jquery": "$",
@@ -157,6 +159,18 @@
     },
     "modernizr": {
       "exports": "Modernizr",
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "d3": {
+      "exports": "d3",
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "leaflet": {
+      "exports": "L",
       "depends": [
         "jquery:$"
       ]
