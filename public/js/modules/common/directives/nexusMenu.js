@@ -1,6 +1,5 @@
 'use strict';
 module.exports = function (ngModule) {
-  var _ = require('lodash');
   ngModule.directive('nexusMenu', function ($templateCache, $log, Utility) {
     return {
       restrict: 'C',
