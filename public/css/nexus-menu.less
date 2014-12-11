@@ -16,28 +16,35 @@
   .gn-menu li.gn-search-item:hover input.gn-search {
     color: white
   }
-
-  /* placeholder */
-
   .gn-menu li.gn-search-item:hover .gn-search::-webkit-input-placeholder {
     color: white
   }
-
   .gn-menu li.gn-search-item:hover .gn-search:-moz-placeholder {
     color: white
   }
-
   .gn-menu li.gn-search-item:hover .gn-search::-moz-placeholder {
     color: white
   }
-
   .gn-menu li.gn-search-item:hover .gn-search:-ms-input-placeholder {
     color: white
   }
 
+  .gn-icon-menu:hover::before,
+  .gn-icon-menu.gn-selected:hover::before {
+    background: white;
+    box-shadow: 0 3px #5f6f81, 0 -6px white, 0 -9px #5f6f81, 0 -12px white;
+  }
 }
 
 .nexus-menu {
+  *,
+  *:after,
+  *::before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
   .gn-menu-main,
   .gn-menu-main ul {
     margin: 0;
@@ -257,8 +264,6 @@
     content: @icomoon-home;
   }
 
-  /* if an icon anchor has a span, hide the span */
-
   .gn-icon span {
     width: 0;
     height: 0;
@@ -274,5 +279,25 @@
     background: #5f6f81;
     box-shadow: 0 3px white, 0 -6px #5f6f81, 0 -9px white, 0 -12px #5f6f81;
     content: '';
+  }
+
+  .gn-icon-menu.gn-selected::before {
+    background: #5993cd;
+    box-shadow: 0 3px white, 0 -6px #5993cd, 0 -9px white, 0 -12px #5993cd;
+  }
+
+  .gn-menu-wrapper.gn-open-all,
+  .gn-menu-wrapper.gn-open-part {
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    transform: translateX(0px);
+  }
+
+  .gn-menu-wrapper.gn-open-all {
+    width: 340px
+  }
+
+  .gn-menu-wrapper.gn-open-all .gn-submenu li {
+    height: 60px
   }
 }

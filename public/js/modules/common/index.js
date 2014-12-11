@@ -12,6 +12,7 @@ var ngModule = angular.module('cancer.common', [
 require('./providers/ajax')(ngModule);
 require('./services/configuration')(ngModule);
 require('./services/resizer')(ngModule);
+require('./services/utility')(ngModule);
 require('./controllers/header')(ngModule);
 require('./directives/retinaMenu')(ngModule);
 require('./directives/nexusMenu')(ngModule);

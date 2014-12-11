@@ -1,13 +1,40 @@
 'use strict';
 module.exports = function (ngModule) {
   var _ = require('lodash');
-  ngModule.directive('nexusMenu', function ($templateCache) {
+  ngModule.directive('nexusMenu', function ($templateCache, $log, Utility) {
     return {
       restrict: 'C',
       scope: {
-        items: '='
+        dataItems: '='
       },
-      template: $templateCache.get('nexusMenu')
+      controller: function ($scope) {
+        $scope.isIconMenuVisible = false;
+        $scope.isMenuVisible = false;
+      },
+      template: $templateCache.get('nexusMenu'),
+      link: function ($scope, element, attributes, ctrl) {
+        var eventType = Utility.isMobile() ? 'touchstart' : 'click';
+        var body = $(document.body);
+        var menu = $(element).find('a.gn-icon-menu');
+
+        menu.on(eventType, function () {
+          $scope.$evalAsync(function () {
+            $scope.isMenuVisible = true;
+          });
+        });
+
+        $scope.$watch('isMenuVisible', function (newValue) {
+          if (newValue) {
+            var closeMenu = function () {
+              $scope.$evalAsync(function () {
+                $scope.isMenuVisible = false;
+              });
+              body.off(eventType, closeMenu);
+            }
+            body.on(eventType, closeMenu);
+          }
+        }, true);
+      }
     };
   });
 };
